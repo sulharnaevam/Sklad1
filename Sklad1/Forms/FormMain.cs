@@ -1,5 +1,6 @@
 ﻿using Sklad1.Data;
 using Sklad1.Helpers;
+using Sklad1.Properties;
 
 namespace Sklad1.Forms
 {
@@ -16,7 +17,7 @@ namespace Sklad1.Forms
         public FormMain()
         {
             InitializeComponent();
-            this.Text = string.Format(Properties.Resources.Title, UserRole);
+            this.Text = string.Format(Resources.Title, UserRole);
             LoadProducts();
         }
 
@@ -47,21 +48,18 @@ namespace Sklad1.Forms
 
                     dgvProducts.DataSource = data;
 
-                    if (data.Count > 0)
-                    {
-                        dgvProducts.Columns["Article"].HeaderText = "Артикул";
-                        dgvProducts.Columns["Name"].HeaderText = "Название";
-                        dgvProducts.Columns["Category"].HeaderText = "Категория";
-                        dgvProducts.Columns["Quantity"].HeaderText = "Количество";
-                        dgvProducts.Columns["PurchasePrice"].HeaderText = "Цена закупки";
-                        dgvProducts.Columns["Stock"].HeaderText = "Текущий остаток";
-                    }
+                    dgvProducts.Columns["Article"].HeaderText = "Артикул";
+                    dgvProducts.Columns["Name"].HeaderText = "Название";
+                    dgvProducts.Columns["Category"].HeaderText = "Категория";
+                    dgvProducts.Columns["Quantity"].HeaderText = "Количество";
+                    dgvProducts.Columns["PurchasePrice"].HeaderText = "Цена закупки";
+                    dgvProducts.Columns["Stock"].HeaderText = "Текущий остаток";
                 }
             }
             catch (Exception ex)
             {
-                Logger.LogError("Ошибка загрузки товаров", ex);
-                MessageBox.Show(Properties.Resources.ProductLoadError);
+                Logger.LogError(Resources.ErrorLoadProducts, ex);
+                MessageBox.Show(Resources.ProductLoadError);
             }
         }
     }

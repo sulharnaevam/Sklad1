@@ -66,7 +66,7 @@ namespace Sklad1.Forms
             }
             catch (Exception ex) 
             {
-                Logger.LogError("Ошибка при регистрации", ex);
+                Logger.LogError(Resources.ErrorRegister, ex);
                 MessageBox.Show(Resources.ErrorSystem);
             }
         }

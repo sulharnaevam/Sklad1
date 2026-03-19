@@ -6,7 +6,7 @@ using Sklad1.Properties;
 namespace Sklad1
 {
     /// <summary>
-    /// Форма входа
+    /// Форма входа 
     /// </summary>
     public partial class FormLogin : Form
     {
@@ -54,7 +54,7 @@ namespace Sklad1
             }
             catch (Exception ex)
             {
-                Logger.LogError($"Ошибка при входе", ex);
+                Logger.LogError(Resources.ErrorLogin, ex);
                 MessageBox.Show(Resources.ErrorSystem);
             }
         }
