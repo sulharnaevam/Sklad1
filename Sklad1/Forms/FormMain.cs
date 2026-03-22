@@ -1,4 +1,5 @@
-﻿using Sklad1.Data;
+﻿using Serilog;
+using Sklad1.Data;
 using Sklad1.Helpers;
 using Sklad1.Properties;
 
@@ -17,8 +18,28 @@ namespace Sklad1.Forms
         public FormMain()
         {
             InitializeComponent();
-            this.Text = string.Format(Resources.Title, UserRole);
+            var displayRole = UserRole == UserRole.Admin ? Resources.Admin : Resources.Storekeeper;
+            this.Text = string.Format(Resources.Title, displayRole);
             LoadProducts();
+
+            if (!IsAdmin())
+            {
+                btnDelete.Visible = false;
+                btnEdit.Visible = false;
+
+                menuProduct.Visible = false;
+                menuCategory.Visible = false;
+
+                menuEditProduct.Visible = false;
+                menuEditCategory.Visible = false;
+
+                btnHistory.Visible = false;
+            }
+        }
+
+        private bool IsAdmin()
+        {
+            return UserRole == UserRole.Admin;
         }
 
         private void LoadProducts()
@@ -30,35 +51,29 @@ namespace Sklad1.Forms
                     var products = bd.Products.ToList();
                     var categories = bd.Categories.ToDictionary(c => c.Id, c => c.Name);
 
-                    var data = new List<dynamic>();
-                    foreach (var p in products)
+                    var data = products.Select(p => new
                     {
-                        var catName = categories.ContainsKey(p.CategoryId) ? categories[p.CategoryId] : string.Empty;
-
-                        data.Add(new
-                        {
-                            Article = p.Article,
-                            Name = p.Name,
-                            Category = catName,
-                            Quantity = p.Quantity,
-                            PurchasePrice = p.PurchasePrice,
-                            Stock = p.Quantity
-                        });
-                    }
+                        p.Article,
+                        p.Name,
+                        Category = categories.ContainsKey(p.CategoryId) ? categories[p.CategoryId] : string.Empty,
+                        p.Quantity,
+                        p.PurchasePrice,
+                        Stock = p.Quantity
+                    }).ToList();
 
                     dgvProducts.DataSource = data;
 
-                    dgvProducts.Columns["Article"].HeaderText = "Артикул";
-                    dgvProducts.Columns["Name"].HeaderText = "Название";
-                    dgvProducts.Columns["Category"].HeaderText = "Категория";
-                    dgvProducts.Columns["Quantity"].HeaderText = "Количество";
-                    dgvProducts.Columns["PurchasePrice"].HeaderText = "Цена закупки";
-                    dgvProducts.Columns["Stock"].HeaderText = "Текущий остаток";
+                    dgvProducts.Columns["Article"].HeaderText = Resources.Article;
+                    dgvProducts.Columns["Name"].HeaderText = Resources.Name;
+                    dgvProducts.Columns["Category"].HeaderText = Resources.Category;
+                    dgvProducts.Columns["Quantity"].HeaderText = Resources.Quantity;
+                    dgvProducts.Columns["PurchasePrice"].HeaderText = Resources.PurchasePrice;
+                    dgvProducts.Columns["Stock"].HeaderText = Resources.Stock;
                 }
             }
             catch (Exception ex)
             {
-                Logger.LogError(Resources.ErrorLoadProducts, ex);
+                Log.Error(ex, "Ошибка загрузки товаров");
                 MessageBox.Show(Resources.ProductLoadError);
             }
         }

@@ -61,6 +61,78 @@ namespace Sklad1.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Администратор.
+        /// </summary>
+        internal static string Admin {
+            get {
+                return ResourceManager.GetString("Admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Артикул.
+        /// </summary>
+        internal static string Article {
+            get {
+                return ResourceManager.GetString("Article", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Товар с таким артикулом уже существует!.
+        /// </summary>
+        internal static string ArticleExists {
+            get {
+                return ResourceManager.GetString("ArticleExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Категория.
+        /// </summary>
+        internal static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Категория успешно создана!.
+        /// </summary>
+        internal static string CategoryCreate {
+            get {
+                return ResourceManager.GetString("CategoryCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Категория успешно изменена!.
+        /// </summary>
+        internal static string CategoryEdit {
+            get {
+                return ResourceManager.GetString("CategoryEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Категория с таким названием уже существует!.
+        /// </summary>
+        internal static string CategoryExists {
+            get {
+                return ResourceManager.GetString("CategoryExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Категория не найдена!.
+        /// </summary>
+        internal static string CategoryNotFound {
+            get {
+                return ResourceManager.GetString("CategoryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Такой email уже есть!.
         /// </summary>
         internal static string EmailExists {
@@ -70,11 +142,74 @@ namespace Sklad1.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Введите название категории!.
+        /// </summary>
+        internal static string EnterCategoryName {
+            get {
+                return ResourceManager.GetString("EnterCategoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Введите email и пароль!.
         /// </summary>
         internal static string EnterEmailAndPassword {
             get {
                 return ResourceManager.GetString("EnterEmailAndPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка при создании категории:.
+        /// </summary>
+        internal static string ErrorCreatCategory {
+            get {
+                return ResourceManager.GetString("ErrorCreatCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка при создании товара:.
+        /// </summary>
+        internal static string ErrorCreateProduct {
+            get {
+                return ResourceManager.GetString("ErrorCreateProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка при редактирование категории:.
+        /// </summary>
+        internal static string ErrorEditCategory {
+            get {
+                return ResourceManager.GetString("ErrorEditCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка загрузки товаров:.
+        /// </summary>
+        internal static string ErrorLoadProducts {
+            get {
+                return ResourceManager.GetString("ErrorLoadProducts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка при входе:.
+        /// </summary>
+        internal static string ErrorLogin {
+            get {
+                return ResourceManager.GetString("ErrorLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка при регистрации:.
+        /// </summary>
+        internal static string ErrorRegister {
+            get {
+                return ResourceManager.GetString("ErrorRegister", resourceCulture);
             }
         }
         
@@ -97,11 +232,92 @@ namespace Sklad1.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Некорректные данные!.
+        /// </summary>
+        internal static string InvalidData {
+            get {
+                return ResourceManager.GetString("InvalidData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введите корректный email (например, name@mail.ru)!.
+        /// </summary>
+        internal static string InvalidEmail {
+            get {
+                return ResourceManager.GetString("InvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Имя должно содержать только буквы!.
+        /// </summary>
+        internal static string InvalidFirstName {
+            get {
+                return ResourceManager.GetString("InvalidFirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Фамилия должна содержать только буквы!.
+        /// </summary>
+        internal static string InvalidLastName {
+            get {
+                return ResourceManager.GetString("InvalidLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Отчество должно содержать только буквы!.
+        /// </summary>
+        internal static string InvalidMiddleName {
+            get {
+                return ResourceManager.GetString("InvalidMiddleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на  Пароль должен быть от 6 до 50 символов, без пробелов!.
+        /// </summary>
+        internal static string InvalidPassword {
+            get {
+                return ResourceManager.GetString("InvalidPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введите корректную цену (только цифры)!.
+        /// </summary>
+        internal static string InvalidPrice {
+            get {
+                return ResourceManager.GetString("InvalidPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Название.
+        /// </summary>
+        internal static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Пароли не совпадают!.
         /// </summary>
         internal static string PasswordsDontMatch {
             get {
                 return ResourceManager.GetString("PasswordsDontMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Товар успешно создан!.
+        /// </summary>
+        internal static string ProductCreate {
+            get {
+                return ResourceManager.GetString("ProductCreate", resourceCulture);
             }
         }
         
@@ -115,11 +331,47 @@ namespace Sklad1.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Цена закупки.
+        /// </summary>
+        internal static string PurchasePrice {
+            get {
+                return ResourceManager.GetString("PurchasePrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Количество.
+        /// </summary>
+        internal static string Quantity {
+            get {
+                return ResourceManager.GetString("Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Регистрация успешна!.
         /// </summary>
         internal static string RegisterSuccess {
             get {
                 return ResourceManager.GetString("RegisterSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Текущий остаток.
+        /// </summary>
+        internal static string Stock {
+            get {
+                return ResourceManager.GetString("Stock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Кладовщик.
+        /// </summary>
+        internal static string Storekeeper {
+            get {
+                return ResourceManager.GetString("Storekeeper", resourceCulture);
             }
         }
         
@@ -133,11 +385,20 @@ namespace Sklad1.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Неверный email или пароль!.
+        ///   Ищет локализованную строку, похожую на Пользователь с таким email не найден!.
         /// </summary>
-        internal static string WrongEmailOrPassword {
+        internal static string UserNotFound {
             get {
-                return ResourceManager.GetString("WrongEmailOrPassword", resourceCulture);
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на  Неверный пароль!.
+        /// </summary>
+        internal static string WrongPassword {
+            get {
+                return ResourceManager.GetString("WrongPassword", resourceCulture);
             }
         }
     }

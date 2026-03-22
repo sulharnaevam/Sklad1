@@ -1,3 +1,4 @@
+using Serilog;
 using Sklad1.Data;
 using Sklad1.Forms;
 using Sklad1.Helpers;
@@ -50,31 +51,19 @@ namespace Sklad1
 
         private bool IsValidEmail(string email)
         {
-            var trimmed = email.Trim();
-            if (email.Contains(" "))
-            {
-                MessageBox.Show(Resources.InvalidEmail);
-                return false;
-            }
-
             try
             {
-                var addr = new MailAddress(email);
-                if (addr.Address != email)
-                {
-                    MessageBox.Show(Resources.InvalidEmail);
-                    return false;
-                }
+                var addr = new MailAddress(email.Trim());
+                return addr.Address == email.Trim();
             }
-            catch
+            catch(Exception ex) 
             {
+                Log.Warning(ex, "Невалидный email при попытке входа: {Email}", email);
                 MessageBox.Show(Resources.InvalidEmail);
                 return false;
             }
-
-            return true;
         }
-        
+
         private void FindUser()
         {
             try
@@ -91,12 +80,6 @@ namespace Sklad1
                         return;
                     }
 
-                    if (user.PasswordHash != Password.HashPassword(txtPassword.Text.Trim()))
-                    {
-                        MessageBox.Show(Resources.WrongPassword);
-                        return;
-                    }
-
                     FormMain.UserRole = user.Role;
 
                     var mainForm = new FormMain();
@@ -106,7 +89,7 @@ namespace Sklad1
             }
             catch (Exception ex)
             {
-                Logger.LogError(Resources.ErrorLogin, ex);
+                Log.Error(ex, "Ошибка при входе пользователя {Email}", txtEmail.Text);
                 MessageBox.Show(Resources.ErrorSystem);
             }
         }

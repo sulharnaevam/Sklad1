@@ -117,11 +117,56 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Admin" xml:space="preserve">
+    <value>Администратор</value>
+  </data>
+  <data name="Article" xml:space="preserve">
+    <value>Артикул</value>
+  </data>
+  <data name="ArticleExists" xml:space="preserve">
+    <value>Товар с таким артикулом уже существует!</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="CategoryCreate" xml:space="preserve">
+    <value>Категория успешно создана!</value>
+  </data>
+  <data name="CategoryEdit" xml:space="preserve">
+    <value>Категория успешно изменена!</value>
+  </data>
+  <data name="CategoryExists" xml:space="preserve">
+    <value>Категория с таким названием уже существует!</value>
+  </data>
+  <data name="CategoryNotFound" xml:space="preserve">
+    <value>Категория не найдена!</value>
+  </data>
   <data name="EmailExists" xml:space="preserve">
     <value>Такой email уже есть!</value>
   </data>
+  <data name="EnterCategoryName" xml:space="preserve">
+    <value>Введите название категории!</value>
+  </data>
   <data name="EnterEmailAndPassword" xml:space="preserve">
     <value>Введите email и пароль!</value>
+  </data>
+  <data name="ErrorCreatCategory" xml:space="preserve">
+    <value>Ошибка при создании категории:</value>
+  </data>
+  <data name="ErrorCreateProduct" xml:space="preserve">
+    <value>Ошибка при создании товара:</value>
+  </data>
+  <data name="ErrorEditCategory" xml:space="preserve">
+    <value>Ошибка при редактирование категории:</value>
+  </data>
+  <data name="ErrorLoadProducts" xml:space="preserve">
+    <value>Ошибка загрузки товаров:</value>
+  </data>
+  <data name="ErrorLogin" xml:space="preserve">
+    <value>Ошибка при входе:</value>
+  </data>
+  <data name="ErrorRegister" xml:space="preserve">
+    <value>Ошибка при регистрации:</value>
   </data>
   <data name="ErrorSystem" xml:space="preserve">
     <value>Ошибка. Произошел сбой в системе!</value>
@@ -129,19 +174,61 @@
   <data name="FillAllFields" xml:space="preserve">
     <value>Заполните все поля!</value>
   </data>
+  <data name="InvalidData" xml:space="preserve">
+    <value>Некорректные данные!</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Введите корректный email (например, name@mail.ru)!</value>
+  </data>
+  <data name="InvalidFirstName" xml:space="preserve">
+    <value>Имя должно содержать только буквы!</value>
+  </data>
+  <data name="InvalidLastName" xml:space="preserve">
+    <value>Фамилия должна содержать только буквы!</value>
+  </data>
+  <data name="InvalidMiddleName" xml:space="preserve">
+    <value>Отчество должно содержать только буквы!</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value> Пароль должен быть от 6 до 50 символов, без пробелов!</value>
+  </data>
+  <data name="InvalidPrice" xml:space="preserve">
+    <value>Введите корректную цену (только цифры)!</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
   <data name="PasswordsDontMatch" xml:space="preserve">
     <value>Пароли не совпадают!</value>
+  </data>
+  <data name="ProductCreate" xml:space="preserve">
+    <value>Товар успешно создан!</value>
   </data>
   <data name="ProductLoadError" xml:space="preserve">
     <value>Ошибка загрузки товаров!</value>
   </data>
+  <data name="PurchasePrice" xml:space="preserve">
+    <value>Цена закупки</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Количество</value>
+  </data>
   <data name="RegisterSuccess" xml:space="preserve">
     <value>Регистрация успешна!</value>
+  </data>
+  <data name="Stock" xml:space="preserve">
+    <value>Текущий остаток</value>
+  </data>
+  <data name="Storekeeper" xml:space="preserve">
+    <value>Кладовщик</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Складской учёт - {0}</value>
   </data>
-  <data name="WrongEmailOrPassword" xml:space="preserve">
-    <value>Неверный email или пароль!</value>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>Пользователь с таким email не найден!</value>
+  </data>
+  <data name="WrongPassword" xml:space="preserve">
+    <value> Неверный пароль!</value>
   </data>
 </root>

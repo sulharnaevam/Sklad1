@@ -31,22 +31,22 @@
             components = new System.ComponentModel.Container();
             dgvProducts = new DataGridView();
             btnCreate = new Button();
-            btnEdit = new Button();
-            btnDelete = new Button();
-            btnHistory = new Button();
-            createMenu = new ContextMenuStrip(components);
+            CreateMenu = new ContextMenuStrip(components);
             menuProduct = new ToolStripMenuItem();
             menuCategory = new ToolStripMenuItem();
             menuShipment = new ToolStripMenuItem();
-            editMenu = new ContextMenuStrip(components);
+            btnEdit = new Button();
+            EditMenu = new ContextMenuStrip(components);
             menuEditProduct = new ToolStripMenuItem();
             menuEditCategory = new ToolStripMenuItem();
+            btnDelete = new Button();
+            btnHistory = new Button();
             panel1 = new Panel();
             panel2 = new Panel();
             label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
-            createMenu.SuspendLayout();
-            editMenu.SuspendLayout();
+            CreateMenu.SuspendLayout();
+            EditMenu.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
@@ -68,48 +68,19 @@
             // btnCreate
             // 
             btnCreate.BackColor = Color.White;
-            btnCreate.Location = new Point(133, 12);
+            btnCreate.ContextMenuStrip = CreateMenu;
+            btnCreate.Location = new Point(394, 12);
             btnCreate.Name = "btnCreate";
             btnCreate.Size = new Size(120, 40);
             btnCreate.TabIndex = 3;
-            btnCreate.Text = "Создать ▼";
+            btnCreate.Text = "Создать ";
             btnCreate.UseVisualStyleBackColor = false;
             // 
-            // btnEdit
+            // CreateMenu
             // 
-            btnEdit.BackColor = Color.White;
-            btnEdit.Location = new Point(272, 12);
-            btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(130, 40);
-            btnEdit.TabIndex = 4;
-            btnEdit.Text = "Редактировать ▼";
-            btnEdit.UseVisualStyleBackColor = false;
-            // 
-            // btnDelete
-            // 
-            btnDelete.BackColor = Color.White;
-            btnDelete.Location = new Point(12, 12);
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(100, 40);
-            btnDelete.TabIndex = 5;
-            btnDelete.Text = "Удалить";
-            btnDelete.UseVisualStyleBackColor = false;
-            // 
-            // btnHistory
-            // 
-            btnHistory.BackColor = Color.White;
-            btnHistory.Location = new Point(423, 12);
-            btnHistory.Name = "btnHistory";
-            btnHistory.Size = new Size(130, 40);
-            btnHistory.TabIndex = 6;
-            btnHistory.Text = "История отгрузок";
-            btnHistory.UseVisualStyleBackColor = false;
-            // 
-            // createMenu
-            // 
-            createMenu.Items.AddRange(new ToolStripItem[] { menuProduct, menuCategory, menuShipment });
-            createMenu.Name = "createMenu";
-            createMenu.Size = new Size(131, 70);
+            CreateMenu.Items.AddRange(new ToolStripItem[] { menuProduct, menuCategory, menuShipment });
+            CreateMenu.Name = "createMenu";
+            CreateMenu.Size = new Size(131, 70);
             // 
             // menuProduct
             // 
@@ -129,11 +100,22 @@
             menuShipment.Size = new Size(130, 22);
             menuShipment.Text = "Отгрузка";
             // 
-            // editMenu
+            // btnEdit
             // 
-            editMenu.Items.AddRange(new ToolStripItem[] { menuEditProduct, menuEditCategory });
-            editMenu.Name = "editMenu";
-            editMenu.Size = new Size(131, 48);
+            btnEdit.BackColor = Color.White;
+            btnEdit.ContextMenuStrip = EditMenu;
+            btnEdit.Location = new Point(268, 11);
+            btnEdit.Name = "btnEdit";
+            btnEdit.Size = new Size(120, 40);
+            btnEdit.TabIndex = 4;
+            btnEdit.Text = "Редактировать ";
+            btnEdit.UseVisualStyleBackColor = false;
+            // 
+            // EditMenu
+            // 
+            EditMenu.Items.AddRange(new ToolStripItem[] { menuEditProduct, menuEditCategory });
+            EditMenu.Name = "editMenu";
+            EditMenu.Size = new Size(131, 48);
             // 
             // menuEditProduct
             // 
@@ -146,6 +128,26 @@
             menuEditCategory.Name = "menuEditCategory";
             menuEditCategory.Size = new Size(130, 22);
             menuEditCategory.Text = "Категория";
+            // 
+            // btnDelete
+            // 
+            btnDelete.BackColor = Color.White;
+            btnDelete.Location = new Point(16, 12);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(120, 40);
+            btnDelete.TabIndex = 5;
+            btnDelete.Text = "Удалить";
+            btnDelete.UseVisualStyleBackColor = false;
+            // 
+            // btnHistory
+            // 
+            btnHistory.BackColor = Color.White;
+            btnHistory.Location = new Point(142, 12);
+            btnHistory.Name = "btnHistory";
+            btnHistory.Size = new Size(120, 40);
+            btnHistory.TabIndex = 6;
+            btnHistory.Text = "История отгрузок";
+            btnHistory.UseVisualStyleBackColor = false;
             // 
             // panel1
             // 
@@ -194,8 +196,8 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Список товаров";
             ((System.ComponentModel.ISupportInitialize)dgvProducts).EndInit();
-            createMenu.ResumeLayout(false);
-            editMenu.ResumeLayout(false);
+            CreateMenu.ResumeLayout(false);
+            EditMenu.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
@@ -209,8 +211,8 @@
         private Button btnEdit;
         private Button btnDelete;
         private Button btnHistory;
-        private ContextMenuStrip createMenu;
-        private ContextMenuStrip editMenu;
+        private ContextMenuStrip CreateMenu;
+        private ContextMenuStrip EditMenu;
         private ToolStripMenuItem menuProduct;
         private ToolStripMenuItem menuCategory;
         private ToolStripMenuItem menuShipment;

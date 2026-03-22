@@ -1,4 +1,5 @@
-﻿using Sklad1.Data;
+﻿using Serilog;
+using Sklad1.Data;
 using Sklad1.Helpers;
 using Sklad1.Properties;
 using System.Net.Mail;
@@ -20,30 +21,26 @@ namespace Sklad1.Forms
         private bool IsValidName(string name)
         {
             var trimmed = name.Trim();
-            return trimmed.Length >= 2 && trimmed.Length <= 50 && Regex.IsMatch(trimmed, @"^[а-яА-ЯёЁa-zA-Z\-]+$");
+            return Regex.IsMatch(trimmed, @"^[а-яА-ЯёЁa-zA-Z\-]{2,50}$");
         }
 
         private bool IsValidEmail(string email)
         {
-            var trimmed = email.Trim();
-
-            if (trimmed.Length < 5 || trimmed.Length > 100)
-                return false;
-
-            if (trimmed.Contains("\0") || trimmed.Contains("\n") || trimmed.Contains("\r"))
-                return false;
-
             try
             {
-                var addr = new MailAddress(trimmed);
-                return addr.Address == trimmed && !trimmed.Contains(" ");
+                var addr = new MailAddress(email.Trim());
+                return addr.Address == email.Trim();
             }
             catch
             {
                 return false;
             }
         }
-
+        /// <summary>
+        /// В цикле мы делаем проверку на эмодзи 
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
         private bool IsValidPassword(string password)
         {
             var trimmed = password.Trim();
@@ -51,10 +48,9 @@ namespace Sklad1.Forms
             if (trimmed.Length < 6 || trimmed.Length > 50)
                 return false;
 
-            if (trimmed.Contains(" ") || trimmed.Contains("\0") ||
-                trimmed.Contains("\n") || trimmed.Contains("\r"))
+            if (trimmed.Contains(" "))
                 return false;
-
+            
             foreach (char c in trimmed)
             {
                 if ((c >= 0x1F300 && c <= 0x1F6FF) ||
@@ -156,7 +152,7 @@ namespace Sklad1.Forms
                         MiddleName = string.IsNullOrWhiteSpace(txtMiddleName.Text) ? string.Empty : txtMiddleName.Text.Trim(),
                         Email = txtEmail.Text.Trim().ToLower(),
                         PasswordHash = Password.HashPassword(txtPassword.Text),
-                        Role = UserRole.Кладовщик
+                        Role = UserRole.Storekeeper
                     };
 
                     bd.Users.Add(newUser);
@@ -169,7 +165,7 @@ namespace Sklad1.Forms
             }
             catch (Exception ex)
             {
-                Logger.LogError(Resources.ErrorRegister, ex);
+                Log.Error(ex, "Ошибка при регистрации пользователя {Email}", txtEmail.Text);
                 MessageBox.Show(Resources.ErrorSystem);
             }
         }
