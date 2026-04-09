@@ -13,6 +13,8 @@ namespace Sklad1.Forms
         {
             InitializeComponent();
 
+            LoadCategories();
+
             btnSave.Click += BtnSave_Click;
             btnCancel.Click += btnCancel_Click;
         }
@@ -38,7 +40,7 @@ namespace Sklad1.Forms
         {
             var article = txtArticle.Text.Trim();
             var name = txtName.Text.Trim();
-            var categoryName = txtCategory.Text.Trim();
+            var categoryName = cmbCategory.Text.Trim();
             var priceText = txtPurchasePrice.Text.Trim();
             var quantityText = txtQuantity.Text.Trim();
 
@@ -73,6 +75,12 @@ namespace Sklad1.Forms
             if (!decimal.TryParse(priceText, out decimal price))
             {
                 MessageBox.Show(Resources.InvalidPrice);
+                return;
+            }
+
+            if (price <= 0)
+            {
+                MessageBox.Show(Resources.InvalidPositivePrice);
                 return;
             }
 
@@ -128,6 +136,18 @@ namespace Sklad1.Forms
             {
                 Log.Error(ex, Resources.ErrorCreateProduct);
                 MessageBox.Show(Resources.ErrorSystem);
+            }
+        }
+
+        private void LoadCategories()
+        {
+            using (var bd = new Context())
+            {
+                var categories = bd.Categories.OrderBy(c => c.Name).ToList();
+
+                cmbCategory.DataSource = categories;
+                cmbCategory.DisplayMember = "Name"; 
+                cmbCategory.ValueMember = "Id"; 
             }
         }
     }

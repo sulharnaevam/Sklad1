@@ -138,6 +138,9 @@
   <data name="CategoryEdit" xml:space="preserve">
     <value>Категория успешно изменена!</value>
   </data>
+  <data name="CategoryError" xml:space="preserve">
+    <value>Пожалуйста, выберите категорию из списка!</value>
+  </data>
   <data name="CategoryExists" xml:space="preserve">
     <value>Категория с таким названием уже существует!</value>
   </data>
@@ -240,6 +243,9 @@
   <data name="InvalidPasswordLength" xml:space="preserve">
     <value>Пароль должен быть от 6 до 50 символов!</value>
   </data>
+  <data name="InvalidPositivePrice" xml:space="preserve">
+    <value>Цена должна быть положительной!</value>
+  </data>
   <data name="InvalidPrice" xml:space="preserve">
     <value>Допустимы только цифры.Попробуйте снова.</value>
   </data>
@@ -248,6 +254,12 @@
   </data>
   <data name="InvalidQuantity" xml:space="preserve">
     <value>Введите корректное количество!</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Вы уверены, что хотите выйти?</value>
+  </data>
+  <data name="LogOutText" xml:space="preserve">
+    <value>Выход из аккаунта</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Название</value>

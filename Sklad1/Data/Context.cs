@@ -35,7 +35,7 @@ namespace Sklad1.Data
        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Database=Sklad_BD;Username=postgres;Password=admin123");
+            optionsBuilder.UseNpgsql("Host=localhost;Database=Sklad_BD;Username=postgres;Password=milanaANDmadina");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

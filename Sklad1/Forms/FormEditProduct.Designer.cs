@@ -35,11 +35,11 @@
             lblName = new Label();
             txtName = new TextBox();
             lblCategory = new Label();
-            txtCategory = new TextBox();
             lblPurchasePrice = new Label();
             txtPurchasePrice = new TextBox();
             btnSave = new Button();
             btnCancel = new Button();
+            cmbCategory = new ComboBox();
             SuspendLayout();
             // 
             // panel1
@@ -47,8 +47,9 @@
             panel1.BackColor = Color.MidnightBlue;
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(4, 5, 4, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(127, 511);
+            panel1.Size = new Size(181, 852);
             panel1.TabIndex = 1;
             // 
             // lblTitle
@@ -56,9 +57,10 @@
             lblTitle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 204);
-            lblTitle.Location = new Point(150, 24);
+            lblTitle.Location = new Point(214, 40);
+            lblTitle.Margin = new Padding(4, 0, 4, 0);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(420, 45);
+            lblTitle.Size = new Size(627, 65);
             lblTitle.TabIndex = 2;
             lblTitle.Text = "Редактирование товара";
             // 
@@ -67,18 +69,20 @@
             lblArticle.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblArticle.AutoSize = true;
             lblArticle.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            lblArticle.Location = new Point(219, 106);
+            lblArticle.Location = new Point(313, 177);
+            lblArticle.Margin = new Padding(4, 0, 4, 0);
             lblArticle.Name = "lblArticle";
-            lblArticle.Size = new Size(58, 17);
+            lblArticle.Size = new Size(92, 28);
             lblArticle.TabIndex = 3;
             lblArticle.Text = "Артикул:";
             // 
             // txtArticle
             // 
             txtArticle.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtArticle.Location = new Point(219, 126);
+            txtArticle.Location = new Point(313, 210);
+            txtArticle.Margin = new Padding(4, 5, 4, 5);
             txtArticle.Name = "txtArticle";
-            txtArticle.Size = new Size(284, 23);
+            txtArticle.Size = new Size(404, 31);
             txtArticle.TabIndex = 7;
             // 
             // lblName
@@ -86,18 +90,20 @@
             lblName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblName.AutoSize = true;
             lblName.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            lblName.Location = new Point(219, 178);
+            lblName.Location = new Point(313, 297);
+            lblName.Margin = new Padding(4, 0, 4, 0);
             lblName.Name = "lblName";
-            lblName.Size = new Size(68, 17);
+            lblName.Size = new Size(104, 28);
             lblName.TabIndex = 8;
             lblName.Text = "Название:";
             // 
             // txtName
             // 
             txtName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtName.Location = new Point(219, 198);
+            txtName.Location = new Point(313, 330);
+            txtName.Margin = new Padding(4, 5, 4, 5);
             txtName.Name = "txtName";
-            txtName.Size = new Size(284, 23);
+            txtName.Size = new Size(404, 31);
             txtName.TabIndex = 9;
             // 
             // lblCategory
@@ -105,37 +111,32 @@
             lblCategory.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblCategory.AutoSize = true;
             lblCategory.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            lblCategory.Location = new Point(219, 253);
+            lblCategory.Location = new Point(313, 422);
+            lblCategory.Margin = new Padding(4, 0, 4, 0);
             lblCategory.Name = "lblCategory";
-            lblCategory.Size = new Size(73, 17);
+            lblCategory.Size = new Size(110, 28);
             lblCategory.TabIndex = 10;
             lblCategory.Text = "Категория:";
-            // 
-            // txtCategory
-            // 
-            txtCategory.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtCategory.Location = new Point(219, 273);
-            txtCategory.Name = "txtCategory";
-            txtCategory.Size = new Size(284, 23);
-            txtCategory.TabIndex = 11;
             // 
             // lblPurchasePrice
             // 
             lblPurchasePrice.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblPurchasePrice.AutoSize = true;
             lblPurchasePrice.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            lblPurchasePrice.Location = new Point(219, 319);
+            lblPurchasePrice.Location = new Point(313, 532);
+            lblPurchasePrice.Margin = new Padding(4, 0, 4, 0);
             lblPurchasePrice.Name = "lblPurchasePrice";
-            lblPurchasePrice.Size = new Size(91, 17);
+            lblPurchasePrice.Size = new Size(141, 28);
             lblPurchasePrice.TabIndex = 12;
             lblPurchasePrice.Text = "Цена закупки:";
             // 
             // txtPurchasePrice
             // 
             txtPurchasePrice.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtPurchasePrice.Location = new Point(219, 339);
+            txtPurchasePrice.Location = new Point(313, 565);
+            txtPurchasePrice.Margin = new Padding(4, 5, 4, 5);
             txtPurchasePrice.Name = "txtPurchasePrice";
-            txtPurchasePrice.Size = new Size(284, 23);
+            txtPurchasePrice.Size = new Size(404, 31);
             txtPurchasePrice.TabIndex = 13;
             // 
             // btnSave
@@ -143,9 +144,10 @@
             btnSave.Anchor = AnchorStyles.Bottom;
             btnSave.BackColor = SystemColors.ActiveCaption;
             btnSave.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            btnSave.Location = new Point(230, 400);
+            btnSave.Location = new Point(329, 667);
+            btnSave.Margin = new Padding(4, 5, 4, 5);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(117, 42);
+            btnSave.Size = new Size(167, 70);
             btnSave.TabIndex = 14;
             btnSave.Text = "Сохранить";
             btnSave.UseVisualStyleBackColor = false;
@@ -155,23 +157,32 @@
             btnCancel.Anchor = AnchorStyles.Bottom;
             btnCancel.BackColor = SystemColors.ActiveCaption;
             btnCancel.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            btnCancel.Location = new Point(370, 400);
+            btnCancel.Location = new Point(529, 667);
+            btnCancel.Margin = new Padding(4, 5, 4, 5);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(117, 42);
+            btnCancel.Size = new Size(167, 70);
             btnCancel.TabIndex = 15;
             btnCancel.Text = "Отмена";
             btnCancel.UseVisualStyleBackColor = false;
             // 
+            // cmbCategory
+            // 
+            cmbCategory.FormattingEnabled = true;
+            cmbCategory.Location = new Point(313, 475);
+            cmbCategory.Name = "cmbCategory";
+            cmbCategory.Size = new Size(404, 33);
+            cmbCategory.TabIndex = 16;
+            // 
             // FormEditProduct
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(599, 511);
+            ClientSize = new Size(856, 852);
+            Controls.Add(cmbCategory);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
             Controls.Add(txtPurchasePrice);
             Controls.Add(lblPurchasePrice);
-            Controls.Add(txtCategory);
             Controls.Add(lblCategory);
             Controls.Add(txtName);
             Controls.Add(lblName);
@@ -179,6 +190,7 @@
             Controls.Add(lblArticle);
             Controls.Add(lblTitle);
             Controls.Add(panel1);
+            Margin = new Padding(4, 5, 4, 5);
             Name = "FormEditProduct";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormEditProduct";
@@ -195,10 +207,10 @@
         private Label lblName;
         private TextBox txtName;
         private Label lblCategory;
-        private TextBox txtCategory;
         private Label lblPurchasePrice;
         private TextBox txtPurchasePrice;
         private Button btnSave;
         private Button btnCancel;
+        private ComboBox cmbCategory;
     }
 }

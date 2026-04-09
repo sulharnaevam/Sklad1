@@ -124,6 +124,15 @@ namespace Sklad1.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Пожалуйста, выберите категорию из списка!.
+        /// </summary>
+        internal static string CategoryError {
+            get {
+                return ResourceManager.GetString("CategoryError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Категория с таким названием уже существует!.
         /// </summary>
         internal static string CategoryExists {
@@ -430,6 +439,15 @@ namespace Sklad1.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Цена должна быть положительной!.
+        /// </summary>
+        internal static string InvalidPositivePrice {
+            get {
+                return ResourceManager.GetString("InvalidPositivePrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Допустимы только цифры.Попробуйте снова..
         /// </summary>
         internal static string InvalidPrice {
@@ -453,6 +471,24 @@ namespace Sklad1.Properties {
         internal static string InvalidQuantity {
             get {
                 return ResourceManager.GetString("InvalidQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вы уверены, что хотите выйти?.
+        /// </summary>
+        internal static string LogOut {
+            get {
+                return ResourceManager.GetString("LogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Выход из аккаунта.
+        /// </summary>
+        internal static string LogOutText {
+            get {
+                return ResourceManager.GetString("LogOutText", resourceCulture);
             }
         }
         

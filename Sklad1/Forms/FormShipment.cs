@@ -18,6 +18,7 @@ namespace Sklad1.Forms
             btnAdd.Click += BtnAdd_Click;
             btnShip.Click += BtnShip_Click;
             btnCancel.Click += btnCancel_Click;
+            cmbProduct.SelectedIndexChanged += cmbProduct_SelectedIndexChanged;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -44,6 +45,31 @@ namespace Sklad1.Forms
             }
         }
 
+        private void UpdateQuantityDropdown()
+        {
+            cmbQuantity.Items.Clear();
+            if (cmbProduct.SelectedItem == null) return;
+
+            var selectedProduct = (ProductItem)cmbProduct.SelectedItem;
+            int maxQuantity = selectedProduct.Quantity;
+
+            int maxItemsToShow = Math.Min(maxQuantity, 20);
+            for (int i = 1; i <= maxItemsToShow; i++)
+            {
+                cmbQuantity.Items.Add(i);
+            }
+
+            if (maxQuantity > 20)
+            {
+                cmbQuantity.Items.Add($"Другое до {maxQuantity}");
+            }
+        }
+
+        private void cmbProduct_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateQuantityDropdown();
+        }
+
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             if (!ValidateClient())
@@ -52,7 +78,7 @@ namespace Sklad1.Forms
             if (!ValidateSelection())
                 return;
 
-            if (!int.TryParse(txtQuantity.Text, out int quantity) || quantity <= 0)
+            if (!int.TryParse(cmbQuantity.Text, out int quantity) || quantity <= 0)
             {
                 MessageBox.Show(Resources.InvalidQuantity);
                 return;
@@ -68,7 +94,7 @@ namespace Sklad1.Forms
 
             AddOrUpdateItem(selected, quantity);
             UpdateGrid();
-            txtQuantity.Clear();
+            cmbQuantity.Text = "";
         }
 
         private bool ValidateSelection()

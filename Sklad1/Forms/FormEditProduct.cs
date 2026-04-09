@@ -17,6 +17,8 @@ namespace Sklad1
         {
             InitializeComponent();
 
+            LoadCategories();
+
             _productId = product.Id;
             txtArticle.Text = product.Article;
             txtName.Text = product.Name;
@@ -24,7 +26,7 @@ namespace Sklad1
             using (var bd = new Context())
             {
                 var category = bd.Categories.Find(product.CategoryId);
-                txtCategory.Text = category?.Name ?? string.Empty;
+                cmbCategory.Text = category?.Name ?? string.Empty;
             }
 
             txtPurchasePrice.Text = product.PurchasePrice.ToString();
@@ -54,15 +56,20 @@ namespace Sklad1
         {
             var article = txtArticle.Text.Trim();
             var name = txtName.Text.Trim();
-            var categoryName = txtCategory.Text.Trim();
+            var categoryName = cmbCategory.Text.Trim();
             var priceText = txtPurchasePrice.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(article) ||
                 string.IsNullOrWhiteSpace(name) ||
-                string.IsNullOrWhiteSpace(categoryName) ||
                 string.IsNullOrWhiteSpace(priceText))
             {
                 MessageBox.Show(Resources.FillAllFields);
+                return;
+            }
+
+            if (cmbCategory.SelectedItem == null)
+            {
+                MessageBox.Show(Resources.CategoryError);
                 return;
             }
 
@@ -87,6 +94,12 @@ namespace Sklad1
             if (!decimal.TryParse(priceText, out decimal price))
             {
                 MessageBox.Show(Resources.InvalidPrice);
+                return;
+            }
+
+            if (price <= 0)
+            {
+                MessageBox.Show(Resources.InvalidPositivePrice);
                 return;
             }
 
@@ -134,6 +147,18 @@ namespace Sklad1
             {
                 Log.Error(ex, Resources.ErrorEditProduct);
                 MessageBox.Show(Resources.ErrorSystem);
+            }
+        }
+
+        private void LoadCategories()
+        {
+            using (var bd = new Context())
+            {
+                var categories = bd.Categories.OrderBy(c => c.Name).ToList();
+
+                cmbCategory.DataSource = categories;
+                cmbCategory.DisplayMember = "Name";
+                cmbCategory.ValueMember = "Id";
             }
         }
     }

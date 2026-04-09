@@ -39,6 +39,11 @@ namespace Sklad1.Forms
                 menuProduct.Visible = menuCategory.Visible = false;
                 menuEditProduct.Visible = menuEditCategory.Visible = false;
             }
+
+            if (IsAdmin())
+            {
+                menuShipment.Visible = false;
+            }
         }
 
         private bool IsAdmin() => UserRole == UserRole.Admin;
@@ -159,7 +164,7 @@ namespace Sklad1.Forms
                 }
             }
         }
-        
+
         private void btnDelete_Click(object sender, EventArgs e)
         {
 
@@ -172,7 +177,7 @@ namespace Sklad1.Forms
             var selectedRow = dgvProducts.SelectedRows[0];
             var article = selectedRow.Cells["Article"].Value.ToString();
 
-            if (MessageBox.Show(Resources.ConfirmDeleteProductText,Resources.ConfirmDelete, MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(Resources.ConfirmDeleteProductText, Resources.ConfirmDelete, MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 try
                 {
@@ -182,7 +187,7 @@ namespace Sklad1.Forms
                        .Include(p => p.ShipmentItems).FirstOrDefault(p => p.Article == article);
 
                         if (product != null)
-                        { 
+                        {
                             bd.Products.Remove(product);
                             bd.SaveChanges();
 
@@ -211,6 +216,17 @@ namespace Sklad1.Forms
             if (form.ShowDialog() == DialogResult.OK)
             {
                 LoadProducts();
+            }
+        }
+
+        private void btnLogOut_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(Resources.LogOut, Resources.LogOutText, MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                FormLogin loginForm = new FormLogin();
+                loginForm.Show();
+
+                this.Close(); 
             }
         }
     }
