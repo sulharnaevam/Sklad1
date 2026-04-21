@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Serilog;
+using NLog;
 using Sklad1.Data;
 using Sklad1.Helpers;
 using Sklad1.Properties;
@@ -7,10 +7,12 @@ using Sklad1.Properties;
 namespace Sklad1.Forms
 {
     /// <summary>
-    /// Главная форма приложения, отображает список товаров
+    /// Форма приложения, отображает список товаров
     /// </summary>
     public partial class FormMain : Form
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// Свойство для сохранения роли пользователя 
         /// </summary>
@@ -54,17 +56,27 @@ namespace Sklad1.Forms
             {
                 using (var bd = new Context())
                 {
-                    var products = bd.Products.ToList();
+                    var products = bd.Products.Where(p => p.Quantity > 0).ToList();
                     var categories = bd.Categories.ToDictionary(c => c.Id, c => c.Name);
+
+                    var batches = bd.ProductBatches
+                       .Where(b => b.Status == "active")
+                       .ToList();
 
                     var data = products.Select(p => new
                     {
                         p.Article,
                         p.Name,
                         Category = categories.ContainsKey(p.CategoryId) ? categories[p.CategoryId] : string.Empty,
-                        Quantity = p.InitialQuantity,
+                        p.InitialQuantity,
+                        Unit = p.Unit ?? Resources.DefaultUnit,
                         p.PurchasePrice,
-                        Stock = p.Quantity
+                        ExpiryDate = batches.Where(b => b.ProductId == p.Id && b.Quantity > 0)
+                                           .Select(b => b.ExpiryDate)
+                                           .DefaultIfEmpty()
+                                           .Min(),
+                        CurrentQuantity = p.Quantity,
+                        BatchCount = batches.Count(b => b.ProductId == p.Id && b.Quantity > 0)
                     }).ToList();
 
                     dgvProducts.DataSource = data;
@@ -72,15 +84,83 @@ namespace Sklad1.Forms
                     dgvProducts.Columns["Article"].HeaderText = Resources.Article;
                     dgvProducts.Columns["Name"].HeaderText = Resources.Name;
                     dgvProducts.Columns["Category"].HeaderText = Resources.Category;
-                    dgvProducts.Columns["Quantity"].HeaderText = Resources.InitialQuantity;
-                    dgvProducts.Columns["PurchasePrice"].HeaderText = Resources.PurchasePrice;
-                    dgvProducts.Columns["Stock"].HeaderText = Resources.Stock;
+                    dgvProducts.Columns["InitialQuantity"].HeaderText = Resources.InitialQuantity;
+                    dgvProducts.Columns["PurchasePrice"].HeaderText = Resources.PurchasePrice;//себестоимость
+                    dgvProducts.Columns["Unit"].HeaderText = Resources.Unit;
+                    dgvProducts.Columns["ExpiryDate"].HeaderText = Resources.ExpiryDate;
+                    dgvProducts.Columns["BatchCount"].HeaderText = Resources.BatchCount;
+                    dgvProducts.Columns["CurrentQuantity"].HeaderText = Resources.Stock;
+                    dgvProducts.Columns["ExpiryDate"].DefaultCellStyle.Format = "dd.MM.yyyy";
+
+                    if (dgvProducts.Columns["BatchCount"] != null)
+                        dgvProducts.Columns["BatchCount"].Visible = false;
+
+                    ApplyExpiryHighlighting();
                 }
             }
             catch (Exception ex)
             {
-                Log.Error(ex, Resources.ProductLoadError);
+                Logger.Error(ex, Resources.ProductLoadError);
                 MessageBox.Show(Resources.ProductLoadError);
+            }
+        }
+
+        private void ApplyExpiryHighlighting()
+        {
+            int warningDays = GetExpiryWarningDays();
+            int dangerDays = GetExpiryDangerDays();
+            foreach (DataGridViewRow row in dgvProducts.Rows)
+            {
+                if (row.Cells["ExpiryDate"].Value == null) continue;
+                if (DateTime.TryParse(row.Cells["ExpiryDate"].Value.ToString(), out DateTime expiryDate))
+                {
+                    int daysLeft = (expiryDate - DateTime.Today).Days;
+                    if (daysLeft < 0)
+                    {
+                        row.DefaultCellStyle.BackColor = Color.LightCoral;
+                        row.DefaultCellStyle.ForeColor = Color.DarkRed;
+                    }
+                    else if (daysLeft <= dangerDays)
+                    {
+                        row.DefaultCellStyle.BackColor = Color.Orange;
+                    }
+                    else if (daysLeft <= warningDays)
+                    {
+                        row.DefaultCellStyle.BackColor = Color.LightYellow;
+                    }
+                }
+            }
+        }
+
+        private int GetExpiryWarningDays()
+        {
+            try
+            {
+                using (var bd = new Context())
+                {
+                    var setting = bd.Settings.FirstOrDefault();
+                    return setting?.ExpiryWarningDays ?? 7;
+                }
+            }
+            catch
+            {
+                return 7;
+            }
+        }
+
+        private int GetExpiryDangerDays()
+        {
+            try
+            {
+                using (var bd = new Context())
+                {
+                    var setting = bd.Settings.FirstOrDefault();
+                    return setting?.ExpiryDangerDays ?? 3;
+                }
+            }
+            catch
+            {
+                return 3;
             }
         }
 
@@ -198,7 +278,7 @@ namespace Sklad1.Forms
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex, Resources.ErrorDeletingProduct);
+                    Logger.Error(ex, Resources.ErrorDeletingProduct);
                     MessageBox.Show(Resources.ErrorSystem);
                 }
             }
@@ -216,17 +296,6 @@ namespace Sklad1.Forms
             if (form.ShowDialog() == DialogResult.OK)
             {
                 LoadProducts();
-            }
-        }
-
-        private void btnLogOut_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show(Resources.LogOut, Resources.LogOutText, MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                FormLogin loginForm = new FormLogin();
-                loginForm.Show();
-
-                this.Close(); 
             }
         }
     }

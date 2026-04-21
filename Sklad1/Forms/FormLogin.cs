@@ -1,4 +1,4 @@
-using Serilog;
+using NLog;
 using Sklad1.Data;
 using Sklad1.Forms;
 using Sklad1.Helpers;
@@ -14,6 +14,8 @@ namespace Sklad1
     /// </summary>
     public partial class FormLogin : Form
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public FormLogin()
         {
             InitializeComponent();
@@ -100,14 +102,14 @@ namespace Sklad1
 
                     FormMain.UserRole = user.Role;
 
-                    var mainForm = new FormMain();
-                    mainForm.Show();
+                    var mainMenu = new FormMainMenu();
+                    mainMenu.Show();
                     this.Hide();
                 }
             }
             catch (Exception ex)
             {
-                Log.Error(ex, Resources.ErrorLogin);
+                Logger.Error(ex, Resources.ErrorLogin);
                 MessageBox.Show(Resources.ErrorSystem);
             }
         }

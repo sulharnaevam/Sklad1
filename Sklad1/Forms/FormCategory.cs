@@ -1,4 +1,4 @@
-﻿using Serilog;
+﻿using NLog;
 using Sklad1.Data;
 using Sklad1.Properties;
 using System.Text.RegularExpressions;
@@ -11,6 +11,8 @@ namespace Sklad1.Forms
     /// </summary>
     public partial class FormCategory : Form
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public FormCategory()
         {
             InitializeComponent();
@@ -75,7 +77,7 @@ namespace Sklad1.Forms
             }
             catch (Exception ex)
             {
-                Log.Error(ex, Resources.ErrorCreatingCategory);
+                Logger.Error(ex, Resources.ErrorCreatingCategory);
                 MessageBox.Show(Resources.ErrorSystem);
             }
         }

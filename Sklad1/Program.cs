@@ -1,4 +1,4 @@
-using Serilog;
+using NLog;
 using Sklad1.Forms;
 
 namespace Sklad1
@@ -8,22 +8,20 @@ namespace Sklad1
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
+        
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         [STAThread]
         static void Main()
         {
-            // Настройка Serilog
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .WriteTo.File("logs/app.log",
-                    rollingInterval: RollingInterval.Day,
-                    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level}] {Message}{NewLine}{Exception}")
-                .CreateLogger();
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
+            // Настройка NLog из конфига
+            var config = new NLog.Config.XmlLoggingConfiguration("NLog.config");
+            LogManager.Configuration = config;
+
+            Logger.Info("Приложение запущено");
+
             ApplicationConfiguration.Initialize();
             Application.Run(new FormLogin());
-
-            
         }
     }
 }

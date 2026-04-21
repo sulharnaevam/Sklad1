@@ -1,4 +1,4 @@
-﻿using Serilog;
+﻿using NLog;
 using Sklad1.Data;
 using Sklad1.Models;
 using Sklad1.Properties;
@@ -11,25 +11,37 @@ namespace Sklad1
     /// </summary>
     public partial class FormEditProduct : Form
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private Guid _productId;
+        private Guid _batchId;
 
         public FormEditProduct(Product product)
         {
             InitializeComponent();
-
             LoadCategories();
+            LoadUnits();
 
             _productId = product.Id;
             txtArticle.Text = product.Article;
             txtName.Text = product.Name;
+            txtPurchasePrice.Text = product.PurchasePrice.ToString();
+            cmbUnit.Text = product.Unit ?? "шт";
 
             using (var bd = new Context())
             {
+                var batch = bd.ProductBatches
+                    .FirstOrDefault(b => b.ProductId == product.Id && b.Status == "active");
+
+                if (batch != null)
+                {
+                    _batchId = batch.Id;
+                    dtpExpDate.Value = batch.ExpiryDate;
+                }
+
                 var category = bd.Categories.Find(product.CategoryId);
                 cmbCategory.Text = category?.Name ?? string.Empty;
             }
-
-            txtPurchasePrice.Text = product.PurchasePrice.ToString();
 
             btnSave.Click += BtnSave_Click;
             btnCancel.Click += btnCancel_Click;
@@ -38,6 +50,12 @@ namespace Sklad1
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void LoadUnits()
+        {
+            cmbUnit.Items.Clear();
+            cmbUnit.Items.AddRange(new string[] { "шт", "кг", "л", "уп", "м", "пач", "кор" });
         }
 
         private bool IsValidName(string text)
@@ -58,6 +76,9 @@ namespace Sklad1
             var name = txtName.Text.Trim();
             var categoryName = cmbCategory.Text.Trim();
             var priceText = txtPurchasePrice.Text.Trim();
+            var unit = cmbUnit.SelectedItem?.ToString() ?? "шт";
+            var expiryDate = dtpExpDate.Value;
+            var expiryDateUtc = DateTime.SpecifyKind(expiryDate, DateTimeKind.Utc);
 
             if (string.IsNullOrWhiteSpace(article) ||
                 string.IsNullOrWhiteSpace(name) ||
@@ -70,6 +91,12 @@ namespace Sklad1
             if (cmbCategory.SelectedItem == null)
             {
                 MessageBox.Show(Resources.CategoryError);
+                return;
+            }
+
+            if (expiryDate.Date < DateTime.Today)
+            {
+                MessageBox.Show(Resources.InvalidExpiryDate);
                 return;
             }
 
@@ -135,8 +162,16 @@ namespace Sklad1
                         product.Name = name;
                         product.CategoryId = category.Id;
                         product.PurchasePrice = price;
-                        bd.SaveChanges();
+                        product.Unit = unit;
 
+                        var batch = bd.ProductBatches.Find(_batchId);
+                        if (batch != null)
+                        {
+                            batch.ExpiryDate = expiryDateUtc;
+                            batch.PurchasePrice = price;
+                        }
+
+                        var result = bd.SaveChanges();
                         MessageBox.Show(Resources.ProductEdit);
                         DialogResult = DialogResult.OK;
                         Close();
@@ -145,7 +180,7 @@ namespace Sklad1
             }
             catch (Exception ex)
             {
-                Log.Error(ex, Resources.ErrorEditProduct);
+                Logger.Error(ex, Resources.ErrorEditProduct);
                 MessageBox.Show(Resources.ErrorSystem);
             }
         }

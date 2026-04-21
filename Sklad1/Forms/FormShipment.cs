@@ -2,6 +2,7 @@
 using Sklad1.Helpers;
 using Sklad1.Models;
 using Sklad1.Properties;
+using NLog;
 
 namespace Sklad1.Forms
 {

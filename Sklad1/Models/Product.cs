@@ -33,7 +33,7 @@ namespace Sklad1.Models
         public Guid CategoryId { get; set; }
 
         /// <summary>
-        /// Цена закупки
+        /// Себестоимость
         /// </summary>
         [Column("purchase_price")]
         public decimal PurchasePrice { get; set; }
@@ -44,11 +44,14 @@ namespace Sklad1.Models
         [Column("quantity")]
         public int Quantity { get; set; }
 
-        /// <summary>
-        /// Начальное количество при поступлении
-        /// </summary>
         [Column("initial_quantity")]
         public int InitialQuantity { get; set; }
+
+        /// <summary>
+        /// Единица измерения
+        /// </summary>
+        [Column("unit")]
+        public string Unit {  get; set; }
 
         /// <summary>
         /// Коллекция позиций отгрузок для этого товара

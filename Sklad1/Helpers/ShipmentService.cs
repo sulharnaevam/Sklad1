@@ -45,7 +45,7 @@ namespace Sklad1.Helpers
                                 ShipmentId = shipment.Id,
                                 ProductId = product.Id,
                                 Quantity = item.Quantity,
-                                PriceAtShipment = product.PurchasePrice
+                                PriceAtShipment = product.PurchasePrice,
                             };
                             bd.ShipmentItems.Add(shipmentItem);
 

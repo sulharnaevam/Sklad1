@@ -1,4 +1,4 @@
-﻿using Serilog;
+﻿using NLog;
 using Sklad1.Data;
 using Sklad1.Helpers;
 using Sklad1.Properties;
@@ -9,11 +9,13 @@ namespace Sklad1.Forms
 {
     public partial class FormProduct : Form
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public FormProduct()
         {
             InitializeComponent();
-
             LoadCategories();
+            LoadUnits();
 
             btnSave.Click += BtnSave_Click;
             btnCancel.Click += btnCancel_Click;
@@ -22,6 +24,13 @@ namespace Sklad1.Forms
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void LoadUnits()
+        {
+            cmbUnit.Items.Clear();
+            cmbUnit.Items.AddRange(new string[] { "шт", "кг", "л", "уп", "м", "пач", "кор" });
+            cmbUnit.SelectedIndex = 0;
         }
 
         private bool IsValidName(string text)
@@ -43,6 +52,9 @@ namespace Sklad1.Forms
             var categoryName = cmbCategory.Text.Trim();
             var priceText = txtPurchasePrice.Text.Trim();
             var quantityText = txtQuantity.Text.Trim();
+            var unit = cmbUnit.SelectedItem?.ToString() ?? Resources.DefaultUnit;
+            var expiryDate = dtpExpDate.Value;
+            var expiryDateUtc = DateTime.SpecifyKind(expiryDate, DateTimeKind.Utc);
 
             if (string.IsNullOrWhiteSpace(article) ||
                 string.IsNullOrWhiteSpace(name) ||
@@ -51,6 +63,12 @@ namespace Sklad1.Forms
                 string.IsNullOrWhiteSpace(quantityText))
             {
                 MessageBox.Show(Resources.FillAllFields);
+                return;
+            }
+
+            if (expiryDate.Date < DateTime.Today)
+            {
+                MessageBox.Show(Resources.InvalidExpiryDate);
                 return;
             }
 
@@ -120,11 +138,24 @@ namespace Sklad1.Forms
                         Name = name,
                         CategoryId = category.Id,
                         PurchasePrice = price,
+                        Quantity = quantity,
                         InitialQuantity = quantity,
-                        Quantity = quantity
+                        Unit = unit
                     };
 
                     bd.Products.Add(product);
+
+                    var batch = new ProductBatch
+                    {
+                        Id = Guid.NewGuid(),
+                        ProductId = product.Id,
+                        Quantity = quantity,
+                        PurchasePrice = price,
+                        ExpiryDate = expiryDateUtc,
+                        Status = "active"
+                    };
+                    bd.ProductBatches.Add(batch);
+
                     bd.SaveChanges();
 
                     MessageBox.Show(Resources.ProductCreate);
@@ -134,7 +165,7 @@ namespace Sklad1.Forms
             }
             catch (Exception ex)
             {
-                Log.Error(ex, Resources.ErrorCreateProduct);
+                Logger.Error(ex, Resources.ErrorCreateProduct);
                 MessageBox.Show(Resources.ErrorSystem);
             }
         }

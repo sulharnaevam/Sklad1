@@ -117,7 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccessDenied" xml:space="preserve">
+  <data name="AccessDenied1" xml:space="preserve">
+    <value>Доступ запрещён! Только для администратора.</value>
+  </data>
+  <data name="AccessDenied2" xml:space="preserve">
     <value>Доступ запрещён! Только для администратора.</value>
   </data>
   <data name="Admin" xml:space="preserve">
@@ -295,7 +298,7 @@
     <value>Ошибка загрузки товаров!</value>
   </data>
   <data name="ProductName" xml:space="preserve">
-    <value>Название товара</value>
+    <value>Товар</value>
   </data>
   <data name="ProductNameExists" xml:space="preserve">
     <value>Товар с таким названием уже существует!</value>
@@ -331,12 +334,216 @@
     <value>Кладовщик</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Складской учёт - {0}</value>
+    <value>Складской учёт </value>
   </data>
   <data name="UserNotFound" xml:space="preserve">
     <value>Пользователь с таким email не найден!</value>
   </data>
   <data name="WrongPassword" xml:space="preserve">
     <value> Неверный пароль!</value>
+  </data>
+  <data name="AccessDenied" xml:space="preserve">
+    <value>Доступ запрещён! Только для администратора.</value>
+  </data>
+  <data name="Revenue" xml:space="preserve">
+    <value>Выручка</value>
+  </data>
+  <data name="Cost" xml:space="preserve">
+    <value>Себестоимость</value>
+  </data>
+  <data name="Losses" xml:space="preserve">
+    <value>Убытки</value>
+  </data>
+  <data name="Profit" xml:space="preserve">
+    <value>Прибыль</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Сформировать</value>
+  </data>
+  <data name="Generating" xml:space="preserve">
+    <value>Формирование...</value>
+  </data>
+  <data name="ReportTitle" xml:space="preserve">
+    <value>Аналитический отсчет</value>
+  </data>
+  <data name="PeriodFormat" xml:space="preserve">
+    <value>Период</value>
+  </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>Успешно сформирован</value>
+  </data>
+  <data name="ErrorLoadCurrency" xml:space="preserve">
+    <value>Ошибка загрузки валюты</value>
+  </data>
+  <data name="ErrorGenerateReport" xml:space="preserve">
+    <value>Ошибка формирования отчёт</value>
+  </data>
+  <data name="ErrorCurrencyConversion" xml:space="preserve">
+    <value>Ошибка конвертации валют</value>
+  </data>
+  <data name="ErrorExport" xml:space="preserve">
+    <value>Ошибка экспорта</value>
+  </data>
+  <data name="ErrorPrint" xml:space="preserve">
+    <value>Ошибка печати</value>
+  </data>
+  <data name="NoDataToExport" xml:space="preserve">
+    <value>Нет данных для экспорта</value>
+  </data>
+  <data name="NoDataToPrint" xml:space="preserve">
+    <value>Нет данных для печати</value>
+  </data>
+  <data name="ReportSaved" xml:space="preserve">
+    <value>Отчёт сохранён</value>
+  </data>
+  <data name="PrintSuccess" xml:space="preserve">
+    <value>Отчёт отправлен на печать</value>
+  </data>
+  <data name="CsvFilter" xml:space="preserve">
+    <value>CSV файлы (*.csv)|*.csv</value>
+  </data>
+  <data name="UnknownProduct" xml:space="preserve">
+    <value>Товар удален</value>
+  </data>
+  <data name="UnknownClient" xml:space="preserve">
+    <value>Не указа</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Валюта</value>
+  </data>
+  <data name="RateToRub" xml:space="preserve">
+    <value>Курс к Rub</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>Обновлено</value>
+  </data>
+  <data name="UpdateRates" xml:space="preserve">
+    <value>Обновить курсы</value>
+  </data>
+  <data name="Updating" xml:space="preserve">
+    <value>Обновление...</value>
+  </data>
+  <data name="RatesUpdated" xml:space="preserve">
+    <value>Курсы валют успешно обновлены</value>
+  </data>
+  <data name="RatesUpdateFailed" xml:space="preserve">
+    <value>Не удалось обновить курсы. Используются последние сохранённые значения</value>
+  </data>
+  <data name="SettingsSaved" xml:space="preserve">
+    <value>Настройки сохранены</value>
+  </data>
+  <data name="ErrorLoadRates" xml:space="preserve">
+    <value>Ошибка загрузки курсов валют</value>
+  </data>
+  <data name="ErrorLoadDisplayCurrency" xml:space="preserve">
+    <value>Ошибка загрузки настроек валюты</value>
+  </data>
+  <data name="ErrorUpdateRates" xml:space="preserve">
+    <value>Ошибка при обновлении курсов</value>
+  </data>
+  <data name="ErrorSaveSettings" xml:space="preserve">
+    <value>Ошибка сохранения настроек</value>
+  </data>
+  <data name="InvalidExpiryDate" xml:space="preserve">
+    <value>Срок годности не может быть в прошлом</value>
+  </data>
+  <data name="NoArticle" xml:space="preserve">
+    <value>Нет артикула</value>
+  </data>
+  <data name="ExpiryDate" xml:space="preserve">
+    <value>Срок годности</value>
+  </data>
+  <data name="DaysLeft" xml:space="preserve">
+    <value>Дней до истечения</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="ConfirmWriteOff" xml:space="preserve">
+    <value>Списать все просроченные товары</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Подтверждение</value>
+  </data>
+  <data name="WritingOff" xml:space="preserve">
+    <value>Списание...</value>
+  </data>
+  <data name="WriteOffComplete" xml:space="preserve">
+    <value>Просроченные товары списаны</value>
+  </data>
+  <data name="WriteOff" xml:space="preserve">
+    <value>Списать просроченные</value>
+  </data>
+  <data name="ErrorLoadBatches" xml:space="preserve">
+    <value>Ошибка загрузки партий</value>
+  </data>
+  <data name="ErrorWriteOff" xml:space="preserve">
+    <value>Ошибка при списании</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>Ед.изм.</value>
+  </data>
+  <data name="BatchCount" xml:space="preserve">
+    <value>Партий</value>
+  </data>
+  <data name="DefaultUnit" xml:space="preserve">
+    <value>шт</value>
+  </data>
+  <data name="ConfirmSaveSupply" xml:space="preserve">
+    <value>Позиции добавлены. Сохранить поставку?</value>
+  </data>
+  <data name="ErrorSaveSupply" xml:space="preserve">
+    <value>Ошибка при сохранении поставки</value>
+  </data>
+  <data name="SupplySaved" xml:space="preserve">
+    <value>Поставка сохранена</value>
+  </data>
+  <data name="ProductAdded" xml:space="preserve">
+    <value>Товар добавлен</value>
+  </data>
+  <data name="ManualInput" xml:space="preserve">
+    <value>Ручной ввод</value>
+  </data>
+  <data name="InvalidCost" xml:space="preserve">
+    <value>Введите корректную себестоимость</value>
+  </data>
+  <data name="EnterPrice" xml:space="preserve">
+    <value>Введите себестоимость закупки</value>
+  </data>
+  <data name="EnterQuantity" xml:space="preserve">
+    <value>Введите количество</value>
+  </data>
+  <data name="Supplier" xml:space="preserve">
+    <value>Поставщик</value>
+  </data>
+  <data name="ErrorFileLoad" xml:space="preserve">
+    <value>Ошибка загрузки файла</value>
+  </data>
+  <data name="SupportedFormatOnly" xml:space="preserve">
+    <value>Поддерживаются только .csv и .xlsx</value>
+  </data>
+  <data name="SelectFileFirst" xml:space="preserve">
+    <value>Сначала выберите файл</value>
+  </data>
+  <data name="FileFilter" xml:space="preserve">
+    <value>Файлы CSV (*.csv)|*.csv|Файлы Excel (*.xlsx)|*.xlsx</value>
+  </data>
+  <data name="DialogTitle" xml:space="preserve">
+    <value>Выберите файл с поставкой</value>
+  </data>
+  <data name="NoDataToImport" xml:space="preserve">
+    <value>Нет данных для импорта</value>
+  </data>
+  <data name="BtnImport" xml:space="preserve">
+    <value>Импорт...</value>
+  </data>
+  <data name="ImportComplete" xml:space="preserve">
+    <value>Импорт завершён!\n\nПозиции импортированы\nСозданы новые товары</value>
+  </data>
+  <data name="ErrorImport" xml:space="preserve">
+    <value>Ошибка при импорте</value>
+  </data>
+  <data name="BtnImportText" xml:space="preserve">
+    <value>Импортировать</value>
   </data>
 </root>

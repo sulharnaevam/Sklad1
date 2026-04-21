@@ -1,5 +1,5 @@
 ﻿using Sklad1.Data;
-using Serilog;
+using NLog;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -9,6 +9,8 @@ namespace Sklad1.Forms
 {
     public partial class FormShipmentHistory : Form
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public FormShipmentHistory()
         {
             InitializeComponent();
@@ -48,7 +50,7 @@ namespace Sklad1.Forms
             }
             catch (Exception ex)
             {
-                Log.Error(ex, Resources.ErrorLoadHistory);
+                Logger.Error(ex, Resources.ErrorLoadHistory);
                 MessageBox.Show(Resources.ErrorLoadHistory);
             }
         }
