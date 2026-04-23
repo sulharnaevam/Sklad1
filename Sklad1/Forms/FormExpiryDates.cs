@@ -17,15 +17,21 @@ namespace Sklad1.Forms
         public FormExpiryDates()
         {
             InitializeComponent();
+            AppCurrencyManager.CurrencyChanged += OnCurrencyChanged;
             LoadBatches();
         }
-
+        private void OnCurrencyChanged()
+        {
+            LoadBatches();
+        }
         private void LoadBatches()
         {
             try
             {
                 using (var bd = new Context())
                 {
+                    var symbol = AppCurrencyManager.GetCurrencySymbol();
+
                     var data = bd.ProductBatches
                         .Include(b => b.Product)
                         .Where(b => b.Quantity > 0 && b.Product != null)
@@ -34,13 +40,23 @@ namespace Sklad1.Forms
                             Article = b.Product.Article ?? Resources.NoArticle,
                             ProductName = b.Product.Name ?? Resources.UnknownProduct,
                             b.Quantity,
-                            ExpiryDate = b.ExpiryDate.ToString("dd.MM.yyyy"),
+                            ExpiryDate = b.ExpiryDate,
                             DaysLeft = (b.ExpiryDate - DateTime.UtcNow.Date).Days,
-                            b.PurchasePrice,
-                            b.Status
+                           b.PurchasePrice
                         }).ToList();
 
-                    dgvExpDates.DataSource = data;
+                    var displayData = data.Select(b => new
+                    {
+                        b.Article,
+                        b.ProductName,
+                        b.Quantity,
+                        ExpiryDate = b.ExpiryDate.ToString("dd.MM.yyyy"),
+                        b.DaysLeft,
+                        PurchasePrice = $"{ConvertCurrency(b.PurchasePrice):F2} {symbol}",
+                        Status = GetStatusText(b.DaysLeft)
+                    }).ToList();
+
+                    dgvExpDates.DataSource = displayData;
 
                     dgvExpDates.Columns["Article"].HeaderText = Resources.Article;
                     dgvExpDates.Columns["ProductName"].HeaderText = Resources.ProductName;
@@ -68,6 +84,28 @@ namespace Sklad1.Forms
             }
         }
 
+        private string GetStatusText(int daysLeft)
+        {
+            if (daysLeft < 0) return Resources.StatusExpired;
+            if (daysLeft <= 3) return Resources.Discount30;
+            if (daysLeft <= 7) return Resources.Discount10;
+            return Resources.Normal;
+        }
+
+        private decimal ConvertCurrency(decimal amount)
+        {
+            string targetCurrency = AppCurrencyManager.CurrentCurrency;
+            if (targetCurrency == "RUB") return amount;
+
+            using (var bd = new Context())
+            {
+                var rate = bd.CurrencyRates.FirstOrDefault(c => c.Code == targetCurrency);
+                if (rate != null && rate.RateToRub > 0)
+                    return amount / rate.RateToRub;
+            }
+            return amount;
+        }
+
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             LoadBatches();
@@ -85,6 +123,7 @@ namespace Sklad1.Forms
             {
                 var count = await ExpiryService.WriteOffExpiredBatches();
                 MessageBox.Show(string.Format(Resources.WriteOffComplete, count));
+                dgvExpDates.DataSource = null;
                 LoadBatches();
             }
             catch (Exception ex)

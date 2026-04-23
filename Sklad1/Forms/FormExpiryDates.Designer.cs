@@ -32,7 +32,6 @@
             panel1 = new Panel();
             lblTitle = new Label();
             Норма = new Label();
-            pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
             label1 = new Label();
             pictureBox3 = new PictureBox();
@@ -42,7 +41,6 @@
             btnWriteOff = new Button();
             btnUpdate = new Button();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel2.SuspendLayout();
@@ -77,16 +75,6 @@
             Норма.Size = new Size(74, 36);
             Норма.TabIndex = 2;
             Норма.Text = "Норма";
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(3, 4);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(27, 27);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 3;
-            pictureBox1.TabStop = false;
             // 
             // pictureBox2
             // 
@@ -129,7 +117,6 @@
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Top;
-            panel2.Controls.Add(pictureBox1);
             panel2.Controls.Add(label2);
             panel2.Controls.Add(Норма);
             panel2.Controls.Add(pictureBox3);
@@ -144,7 +131,6 @@
             // 
             dgvExpDates.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvExpDates.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvExpDates.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
             dgvExpDates.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvExpDates.Location = new Point(36, 134);
             dgvExpDates.Name = "dgvExpDates";
@@ -195,7 +181,6 @@
             WindowState = FormWindowState.Maximized;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             panel2.ResumeLayout(false);
@@ -209,7 +194,6 @@
         private Panel panel1;
         private Label lblTitle;
         private Label Норма;
-        private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private Label label1;
         private PictureBox pictureBox3;

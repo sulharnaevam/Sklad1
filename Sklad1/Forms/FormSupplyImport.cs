@@ -27,6 +27,28 @@ namespace Sklad1.Forms
             panel2.Click += Panel2_Click;
         }
 
+
+        private bool HasNegativeQuantities()
+        {
+            var negatives = _rows.Where(r => r.Quantity < 0).ToList();
+
+            if (negatives.Any())
+            {
+                var badProducts = string.Join(", ", negatives.Take(5).Select(r => r.ProductName));
+                var message = string.Format(Resources.ErrorNegativeQuantityMessage, badProducts);
+
+                if (negatives.Count > 5)
+                    message += string.Format(Resources.ErrorNegativeQuantityAndMore, negatives.Count - 5);
+
+                message += Resources.ErrorNegativeQuantityFooter;
+
+                MessageBox.Show(Resources.ErrorNegativeQuantityFooter);
+                return true;
+            }
+
+            return false;
+        }
+
         private void Panel2_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -189,6 +211,13 @@ namespace Sklad1.Forms
             if (_rows.Count == 0)
             {
                 MessageBox.Show(Resources.NoDataToImport);
+                return;
+            }
+
+            if (HasNegativeQuantities())
+            {
+                btnImport.Enabled = true;
+                btnImport.Text = Resources.BtnImportText;
                 return;
             }
 

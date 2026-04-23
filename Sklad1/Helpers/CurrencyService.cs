@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Text.Json;
 using Sklad1.Data;
 using Sklad1.Models;
+using Sklad1.Properties;
 
 namespace Sklad1.Helpers
 {
@@ -22,13 +23,11 @@ namespace Sklad1.Helpers
                     client.Timeout = TimeSpan.FromSeconds(10);
                     var response = await client.GetStringAsync("https://www.cbr-xml-daily.ru/daily_json.js");
 
-                    System.Windows.Forms.MessageBox.Show($"Получено: {response.Substring(0, Math.Min(200, response.Length))}...");
-
                     var data = JsonSerializer.Deserialize<CbrResponse>(response);
 
                     if (data?.Valute == null)
                     {
-                        System.Windows.Forms.MessageBox.Show("Ошибка: данные не распознаны");
+                        MessageBox.Show(Resources.ErrorData);
                         return false;
                     }
 
@@ -46,7 +45,6 @@ namespace Sklad1.Helpers
                         UpdateRate(bd, "RUB", 1);
 
                         int saved = await bd.SaveChangesAsync();
-                        System.Windows.Forms.MessageBox.Show($"Сохранено записей: {saved}");
                     }
 
                     return true;
@@ -54,7 +52,7 @@ namespace Sklad1.Helpers
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"Ошибка: {ex.Message}");
+                MessageBox.Show(Resources.ErrorInternet);
                 return false;
             }
         }
@@ -100,7 +98,7 @@ namespace Sklad1.Helpers
             }
             catch (Exception ex)
             {
-                AppLogger.Error(ex, "Ошибка конвертации валюты");
+                AppLogger.Error(ex, Resources.ErrorCurrencyConversion);
             }
 
             return amountRub;

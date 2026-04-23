@@ -259,7 +259,7 @@ namespace Sklad1.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на CSV файлы (*.csv)|*.csv.
+        ///   Ищет локализованную строку, похожую на CSV файлы (*.csv)|*.csv|Excel файлы (*.xlsx)|*.xlsx|PDF файлы (*.pdf)|*.pdf.
         /// </summary>
         internal static string CsvFilter {
             get {
@@ -273,6 +273,15 @@ namespace Sklad1.Properties {
         internal static string Currency {
             get {
                 return ResourceManager.GetString("Currency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Остаток.
+        /// </summary>
+        internal static string CurrentQuantity {
+            get {
+                return ResourceManager.GetString("CurrentQuantity", resourceCulture);
             }
         }
         
@@ -313,6 +322,15 @@ namespace Sklad1.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Дата начала периода не может быть позже даты окончания.
+        /// </summary>
+        internal static string DateFromLaterThanDateTo {
+            get {
+                return ResourceManager.GetString("DateFromLaterThanDateTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Дней до истечения.
         /// </summary>
         internal static string DaysLeft {
@@ -336,6 +354,24 @@ namespace Sklad1.Properties {
         internal static string DialogTitle {
             get {
                 return ResourceManager.GetString("DialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Скидка 10%.
+        /// </summary>
+        internal static string Discount10 {
+            get {
+                return ResourceManager.GetString("Discount10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Скидка 30%.
+        /// </summary>
+        internal static string Discount30 {
+            get {
+                return ResourceManager.GetString("Discount30", resourceCulture);
             }
         }
         
@@ -421,6 +457,15 @@ namespace Sklad1.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка: данные не распознаны.
+        /// </summary>
+        internal static string ErrorData {
+            get {
+                return ResourceManager.GetString("ErrorData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Ошибка при удалении товара.
         /// </summary>
         internal static string ErrorDeletingProduct {
@@ -484,6 +529,15 @@ namespace Sklad1.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Нет соединения с интернетом. Повторите попытку позже.
+        /// </summary>
+        internal static string ErrorInternet {
+            get {
+                return ResourceManager.GetString("ErrorInternet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Ошибка загрузки партий.
         /// </summary>
         internal static string ErrorLoadBatches {
@@ -538,11 +592,56 @@ namespace Sklad1.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка загрузки подсказок для поиска.
+        /// </summary>
+        internal static string ErrorLoadSearch {
+            get {
+                return ResourceManager.GetString("ErrorLoadSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Ошибка при входе:.
         /// </summary>
         internal static string ErrorLogin {
             get {
                 return ResourceManager.GetString("ErrorLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на и другие.
+        /// </summary>
+        internal static string ErrorNegativeQuantityAndMore {
+            get {
+                return ResourceManager.GetString("ErrorNegativeQuantityAndMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Импорт невозможен. Измените данные и попробуйте снова.
+        /// </summary>
+        internal static string ErrorNegativeQuantityFooter {
+            get {
+                return ResourceManager.GetString("ErrorNegativeQuantityFooter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Обнаружены товары с отрицательным количеством.
+        /// </summary>
+        internal static string ErrorNegativeQuantityMessage {
+            get {
+                return ResourceManager.GetString("ErrorNegativeQuantityMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка валидации.
+        /// </summary>
+        internal static string ErrorNegativeQuantityTitle {
+            get {
+                return ResourceManager.GetString("ErrorNegativeQuantityTitle", resourceCulture);
             }
         }
         
@@ -561,6 +660,15 @@ namespace Sklad1.Properties {
         internal static string ErrorRegister {
             get {
                 return ResourceManager.GetString("ErrorRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка сохранения валюты.
+        /// </summary>
+        internal static string ErrorSaveCurrency {
+            get {
+                return ResourceManager.GetString("ErrorSaveCurrency", resourceCulture);
             }
         }
         
@@ -588,6 +696,15 @@ namespace Sklad1.Properties {
         internal static string ErrorSystem {
             get {
                 return ResourceManager.GetString("ErrorSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка.
+        /// </summary>
+        internal static string ErrorTitle {
+            get {
+                return ResourceManager.GetString("ErrorTitle", resourceCulture);
             }
         }
         
@@ -655,7 +772,7 @@ namespace Sklad1.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Импорт завершён!\n\nПозиции импортированы\nСозданы новые товары.
+        ///   Ищет локализованную строку, похожую на Импорт завершён!.
         /// </summary>
         internal static string ImportComplete {
             get {
@@ -669,6 +786,15 @@ namespace Sklad1.Properties {
         internal static string InitialQuantity {
             get {
                 return ResourceManager.GetString("InitialQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Недостаточно годного товара. Просроченные товары не могут быть отгружены.
+        /// </summary>
+        internal static string InsufficientGoods {
+            get {
+                return ResourceManager.GetString("InsufficientGoods", resourceCulture);
             }
         }
         
@@ -817,6 +943,24 @@ namespace Sklad1.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Нет доступных партий для отгрузки (все просрочены).
+        /// </summary>
+        internal static string InvalidShipment {
+            get {
+                return ResourceManager.GetString("InvalidShipment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Позиций.
+        /// </summary>
+        internal static string ItemsCount {
+            get {
+                return ResourceManager.GetString("ItemsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Вы уверены, что хотите выйти?.
         /// </summary>
         internal static string LogOut {
@@ -912,6 +1056,24 @@ namespace Sklad1.Properties {
         internal static string NoDataToPrint {
             get {
                 return ResourceManager.GetString("NoDataToPrint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Норма.
+        /// </summary>
+        internal static string Normal {
+            get {
+                return ResourceManager.GetString("Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Номер.
+        /// </summary>
+        internal static string Number {
+            get {
+                return ResourceManager.GetString("Number", resourceCulture);
             }
         }
         
@@ -1123,6 +1285,24 @@ namespace Sklad1.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Покупатель.
+        /// </summary>
+        internal static string SearchByClient {
+            get {
+                return ResourceManager.GetString("SearchByClient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Номер.
+        /// </summary>
+        internal static string SearchByNumber {
+            get {
+                return ResourceManager.GetString("SearchByNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Сначала выберите файл.
         /// </summary>
         internal static string SelectFileFirst {
@@ -1195,6 +1375,15 @@ namespace Sklad1.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Просрочена.
+        /// </summary>
+        internal static string StatusExpired {
+            get {
+                return ResourceManager.GetString("StatusExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Текущий остаток.
         /// </summary>
         internal static string Stock {
@@ -1245,6 +1434,24 @@ namespace Sklad1.Properties {
         internal static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сумма.
+        /// </summary>
+        internal static string TotalAmount {
+            get {
+                return ResourceManager.GetString("TotalAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Информация найдена.
+        /// </summary>
+        internal static string TotalInfo {
+            get {
+                return ResourceManager.GetString("TotalInfo", resourceCulture);
             }
         }
         

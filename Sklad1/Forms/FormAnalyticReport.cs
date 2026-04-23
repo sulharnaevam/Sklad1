@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NLog;
+using OfficeOpenXml;
 using Sklad1.Data;
 using Sklad1.Helpers;
 using Sklad1.Properties;
-using System.Text;
+using System.Data;
+using System.Drawing;
 using System.Drawing.Printing;
+using System.Text;
 
 namespace Sklad1.Forms
 {
@@ -12,30 +15,72 @@ namespace Sklad1.Forms
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private string _displayCurrency = "RUB";
-
         public FormAnalyticReport()
         {
             InitializeComponent();
+
+            AppCurrencyManager.CurrencyChanged += OnCurrencyChanged;
             LoadDisplayCurrency();
             dtpDateFrom.Value = DateTime.Now.AddMonths(-1);
             dtpDateTo.Value = DateTime.Now;
             btnGenerate.Click += btnGenerate_Click;
             btnExport.Click += btnExport_Click;
             btnPrint.Click += btnPrint_Click;
+
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+        }
+
+
+        private void OnCurrencyChanged()
+        {
+            _displayCurrency = AppCurrencyManager.CurrentCurrency;
+            RefreshReport();
         }
 
         private void LoadDisplayCurrency()
         {
-            try
-            {
-                using (var bd = new Context())
-                {
-                    var setting = bd.Settings.FirstOrDefault();
-                    if (setting != null) _displayCurrency = setting.DisplayCurrency;
-                }
-            }
-            catch (Exception ex) { Logger.Error(ex, Resources.ErrorLoadCurrency); }
+            _displayCurrency = AppCurrencyManager.CurrentCurrency;
         }
+
+        public async void RefreshReport()
+        {
+            await GenerateAndDisplayReport();
+        }
+
+        private async Task GenerateAndDisplayReport()
+        {
+            var from = dtpDateFrom.Value.Date;
+            var to = dtpDateTo.Value.Date.AddDays(1).AddSeconds(-1);
+            var (revenue, cost, losses, details) = await GetReportData(from, to);
+
+            var symbol = GetCurrencySymbol();
+            var displayDetails = ((List<object>)details).Select(d =>
+            {
+                var prop = d.GetType().GetProperties();
+                return new
+                {
+                    Date = prop.First(p => p.Name == "Date").GetValue(d),
+                    Client = prop.First(p => p.Name == "Client").GetValue(d),
+                    ProductName = prop.First(p => p.Name == "ProductName").GetValue(d),
+                    Quantity = prop.First(p => p.Name == "Quantity").GetValue(d),
+                    Revenue = $"{ConvertToRub((decimal)prop.First(p => p.Name == "Revenue").GetValue(d), _displayCurrency):F2} {symbol}",
+                    Cost = $"{ConvertToRub((decimal)prop.First(p => p.Name == "Cost").GetValue(d), _displayCurrency):F2} {symbol}",
+                    Profit = $"{ConvertToRub((decimal)prop.First(p => p.Name == "Revenue").GetValue(d) - (decimal)prop.First(p => p.Name == "Cost").GetValue(d), _displayCurrency):F2} {symbol}"
+                };
+            }).ToList();
+
+            dgvAnalyticReport.DataSource = displayDetails;
+
+            dgvAnalyticReport.Columns["Date"].HeaderText = Resources.Date;
+            dgvAnalyticReport.Columns["Client"].HeaderText = Resources.Client;
+            dgvAnalyticReport.Columns["ProductName"].HeaderText = Resources.ProductName;
+            dgvAnalyticReport.Columns["Quantity"].HeaderText = Resources.Quantity;
+            dgvAnalyticReport.Columns["Revenue"].HeaderText = Resources.Revenue;
+            dgvAnalyticReport.Columns["Cost"].HeaderText = Resources.Cost;
+            dgvAnalyticReport.Columns["Profit"].HeaderText = Resources.Profit;
+
+            UpdateUI(ConvertToRub(revenue, _displayCurrency), ConvertToRub(cost, _displayCurrency), ConvertToRub(losses, _displayCurrency));
+        }//
 
         private async Task<(decimal Revenue, decimal Cost, decimal Losses, List<object> Details)> GetReportData(DateTime from, DateTime to)
         {
@@ -76,6 +121,8 @@ namespace Sklad1.Forms
             var symbol = GetCurrencySymbol();
             var profit = revenue - cost - losses;
 
+            if (profit < 0) profit = 0;
+
             lblRevenue.Text = $"{revenue:F2} {symbol}";
             lblCost.Text = $"{cost:F2} {symbol}";
             lblLosses.Text = $"{losses:F2} {symbol}";
@@ -95,6 +142,16 @@ namespace Sklad1.Forms
             };
         }
 
+        private bool ValidateDates()
+        {
+            if (dtpDateFrom.Value > dtpDateTo.Value)
+            {
+                MessageBox.Show(Resources.DateFromLaterThanDateTo);
+                return false;
+            }
+            return true;
+        }
+
         private decimal ConvertToRub(decimal amount, string targetCurrency)
         {
             if (targetCurrency == "RUB") return amount;
@@ -112,32 +169,13 @@ namespace Sklad1.Forms
 
         private async void btnGenerate_Click(object sender, EventArgs e)
         {
+            if (!ValidateDates()) return;
+
             btnGenerate.Enabled = false;
             btnGenerate.Text = Resources.Generating;
             try
             {
-                var from = dtpDateFrom.Value.Date;
-                var to = dtpDateTo.Value.Date.AddDays(1).AddSeconds(-1);
-                var (revenue, cost, losses, details) = await GetReportData(from, to);
-
-                var symbol = GetCurrencySymbol();
-                var displayDetails = ((List<object>)details).Select(d =>
-                {
-                    var prop = d.GetType().GetProperties();
-                    return new
-                    {
-                        Date = prop.First(p => p.Name == "Date").GetValue(d),
-                        Client = prop.First(p => p.Name == "Client").GetValue(d),
-                        ProductName = prop.First(p => p.Name == "ProductName").GetValue(d),
-                        Quantity = prop.First(p => p.Name == "Quantity").GetValue(d),
-                        Revenue = $"{ConvertToRub((decimal)prop.First(p => p.Name == "Revenue").GetValue(d), _displayCurrency):F2} {symbol}",
-                        Cost = $"{ConvertToRub((decimal)prop.First(p => p.Name == "Cost").GetValue(d), _displayCurrency):F2} {symbol}",
-                        Profit = $"{ConvertToRub((decimal)prop.First(p => p.Name == "Revenue").GetValue(d) - (decimal)prop.First(p => p.Name == "Cost").GetValue(d), _displayCurrency):F2} {symbol}"
-                    };
-                }).ToList();
-
-                dgvAnalyticReport.DataSource = displayDetails;
-                UpdateUI(ConvertToRub(revenue, _displayCurrency), ConvertToRub(cost, _displayCurrency), ConvertToRub(losses, _displayCurrency));
+                await GenerateAndDisplayReport();
             }
             catch (Exception ex) { Logger.Error(ex, Resources.ErrorGenerateReport); MessageBox.Show(Resources.ErrorSystem); }
             finally { btnGenerate.Enabled = true; btnGenerate.Text = Resources.Generate; }
@@ -145,6 +183,8 @@ namespace Sklad1.Forms
 
         private async void btnExport_Click(object sender, EventArgs e)
         {
+            btnExport.Enabled = false;
+
             if (dgvAnalyticReport.Rows.Count == 0) { MessageBox.Show(Resources.NoDataToExport); return; }
 
             using (var sfd = new SaveFileDialog())
@@ -154,31 +194,77 @@ namespace Sklad1.Forms
                 sfd.FileName = $"Report_{dtpDateFrom.Value:yyyyMMdd}-{dtpDateTo.Value:yyyyMMdd}";
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
+                    string ext = Path.GetExtension(sfd.FileName).ToLower();
                     try
                     {
-                        var csv = new StringBuilder();
-                        csv.AppendLine(string.Join(";", dgvAnalyticReport.Columns.Cast<DataGridViewColumn>().Select(c => c.HeaderText)));
-                        foreach (DataGridViewRow row in dgvAnalyticReport.Rows)
-                        {
-                            if (row.IsNewRow) continue;
-                            csv.AppendLine(string.Join(";", row.Cells.Cast<DataGridViewCell>().Select(c => c.Value?.ToString() ?? "")));
-                        }
-                        csv.AppendLine();
-                        csv.AppendLine($"{Resources.Revenue};{lblRevenue.Text}");
-                        csv.AppendLine($"{Resources.Cost};{lblCost.Text}");
-                        csv.AppendLine($"{Resources.Losses};{lblLosses.Text}");
-                        csv.AppendLine($"{Resources.Profit};{lblProfit.Text}");
-                        await File.WriteAllTextAsync(sfd.FileName, csv.ToString(), Encoding.UTF8);
+                        if (ext == ".csv")
+                            await ExportToCsv(sfd.FileName);
+                        else if (ext == ".xlsx")
+                            await ExportToExcel(sfd.FileName);
+
                         MessageBox.Show(string.Format(Resources.ReportSaved, sfd.FileName));
                     }
-                    catch (Exception ex) { Logger.Error(ex, Resources.ErrorExport); MessageBox.Show(Resources.ErrorSystem); }
+                    catch (Exception ex) 
+                    { 
+                        Logger.Error(ex, Resources.ErrorExport); 
+                        MessageBox.Show(Resources.ErrorSystem); 
+                    }
                 }
             }
+            btnExport.Enabled = true;
+        }
+        private async Task ExportToCsv(string fileName)
+        {
+            var csv = new StringBuilder();
+            csv.AppendLine(string.Join(";", dgvAnalyticReport.Columns.Cast<DataGridViewColumn>().Select(c => c.HeaderText)));
+            foreach (DataGridViewRow row in dgvAnalyticReport.Rows)
+            {
+                if (row.IsNewRow) continue;
+                csv.AppendLine(string.Join(";", row.Cells.Cast<DataGridViewCell>().Select(c => c.Value?.ToString() ?? "")));
+            }
+            csv.AppendLine();
+            csv.AppendLine($"{Resources.Revenue};{lblRevenue.Text}");
+            csv.AppendLine($"{Resources.Cost};{lblCost.Text}");
+            csv.AppendLine($"{Resources.Losses};{lblLosses.Text}");
+            csv.AppendLine($"{Resources.Profit};{lblProfit.Text}");
+            await File.WriteAllTextAsync(fileName, csv.ToString(), Encoding.UTF8);
+        }
+
+        private async Task ExportToExcel(string fileName)
+        {
+            using (var package = new ExcelPackage())
+            {
+                var sheet = package.Workbook.Worksheets.Add(Resources.ReportTitle);
+                sheet.Cells["A1"].LoadFromDataTable(GetDataTable(), true);
+                sheet.Cells[sheet.Dimension.Address].AutoFitColumns();
+                await package.SaveAsAsync(new FileInfo(fileName));
+            }
+        }
+
+        private DataTable GetDataTable()
+        {
+            var dt = new DataTable();
+            foreach (DataGridViewColumn col in dgvAnalyticReport.Columns)
+                dt.Columns.Add(col.HeaderText);
+
+            foreach (DataGridViewRow row in dgvAnalyticReport.Rows)
+            {
+                if (row.IsNewRow) continue;
+                dt.Rows.Add(row.Cells.Cast<DataGridViewCell>().Select(c => c.Value).ToArray());
+            }
+            return dt;
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            if (dgvAnalyticReport.Rows.Count == 0) { MessageBox.Show(Resources.NoDataToPrint); return; }
+            btnPrint.Enabled = false;
+
+            if (dgvAnalyticReport.Rows.Count == 0) 
+            { 
+                MessageBox.Show(Resources.NoDataToPrint);
+                btnPrint.Enabled = true;
+                return; 
+            }
 
             PrintDialog printDialog = new PrintDialog();
             PrintDocument printDocument = new PrintDocument();
@@ -227,6 +313,7 @@ namespace Sklad1.Forms
                 try { printDocument.Print(); MessageBox.Show(Resources.PrintSuccess); }
                 catch (Exception ex) { Logger.Error(ex, Resources.ErrorPrint); MessageBox.Show(Resources.ErrorSystem); }
             }
+            btnPrint.Enabled = true;
         }
     }
 }

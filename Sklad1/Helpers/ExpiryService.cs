@@ -88,6 +88,7 @@ namespace Sklad1.Helpers
                                 bd.Losses.Add(loss);
 
                                 batch.Status = "expired";
+                                batch.Quantity = 0;
                                 batch.Product.Quantity -= writeOffQuantity;
 
                                 await bd.SaveChangesAsync();
@@ -128,6 +129,28 @@ namespace Sklad1.Helpers
             return bd.ProductBatches
                 .Where(b => b.ProductId == productId && b.Status == "active" && b.Quantity > 0)
                 .OrderBy(b => b.ExpiryDate);  
+        }
+
+        public static decimal GetDiscount(int daysLeft)
+        {
+            if (daysLeft < 0) return 0.50m;   
+            if (daysLeft <= 1) return 0.30m;  
+            if (daysLeft <= 3) return 0.20m;  
+            if (daysLeft <= 7) return 0.10m;    
+            return 0;
+        }
+
+        public static decimal GetDiscountedPrice(decimal originalPrice, int daysLeft)
+        {
+            decimal discount = GetDiscount(daysLeft);
+            return Math.Round(originalPrice * (1 - discount), 2);
+        }
+
+        public static string GetDiscountText(int daysLeft)
+        {
+            decimal discount = GetDiscount(daysLeft);
+            if (discount == 0) return "-";
+            return $"-{discount * 100}%";
         }
     }
 

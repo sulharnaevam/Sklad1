@@ -17,11 +17,15 @@ namespace Sklad1.Forms
         public FormSupply()
         {
             InitializeComponent();
+            AppCurrencyManager.CurrencyChanged += OnCurrencyChanged;//
             LoadProducts();
             LoadCurrencies();
             LoadUnits();
         }
-
+        private void OnCurrencyChanged()
+        {
+            LoadProducts();
+        }
         private void LoadProducts()
         {
             try

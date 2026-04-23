@@ -400,7 +400,7 @@
     <value>Отчёт отправлен на печать</value>
   </data>
   <data name="CsvFilter" xml:space="preserve">
-    <value>CSV файлы (*.csv)|*.csv</value>
+    <value>CSV файлы (*.csv)|*.csv|Excel файлы (*.xlsx)|*.xlsx|PDF файлы (*.pdf)|*.pdf</value>
   </data>
   <data name="UnknownProduct" xml:space="preserve">
     <value>Товар удален</value>
@@ -538,12 +538,81 @@
     <value>Импорт...</value>
   </data>
   <data name="ImportComplete" xml:space="preserve">
-    <value>Импорт завершён!\n\nПозиции импортированы\nСозданы новые товары</value>
+    <value>Импорт завершён!</value>
   </data>
   <data name="ErrorImport" xml:space="preserve">
     <value>Ошибка при импорте</value>
   </data>
   <data name="BtnImportText" xml:space="preserve">
     <value>Импортировать</value>
+  </data>
+  <data name="CurrentQuantity" xml:space="preserve">
+    <value>Остаток</value>
+  </data>
+  <data name="SearchByClient" xml:space="preserve">
+    <value>Покупатель</value>
+  </data>
+  <data name="SearchByNumber" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="ItemsCount" xml:space="preserve">
+    <value>Позиций</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Сумма</value>
+  </data>
+  <data name="TotalInfo" xml:space="preserve">
+    <value>Информация найдена</value>
+  </data>
+  <data name="DateFromLaterThanDateTo" xml:space="preserve">
+    <value>Дата начала периода не может быть позже даты окончания</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="InvalidShipment" xml:space="preserve">
+    <value>Нет доступных партий для отгрузки (все просрочены)</value>
+  </data>
+  <data name="InsufficientGoods" xml:space="preserve">
+    <value>Недостаточно годного товара. Просроченные товары не могут быть отгружены</value>
+  </data>
+  <data name="StatusExpired" xml:space="preserve">
+    <value>Просрочена</value>
+  </data>
+  <data name="Discount30" xml:space="preserve">
+    <value>Скидка 30%</value>
+  </data>
+  <data name="Discount10" xml:space="preserve">
+    <value>Скидка 10%</value>
+  </data>
+  <data name="Normal" xml:space="preserve">
+    <value>Норма</value>
+  </data>
+  <data name="ErrorLoadSearch" xml:space="preserve">
+    <value>Ошибка загрузки подсказок для поиска</value>
+  </data>
+  <data name="ErrorSaveCurrency" xml:space="preserve">
+    <value>Ошибка сохранения валюты</value>
+  </data>
+  <data name="ErrorData" xml:space="preserve">
+    <value>Ошибка: данные не распознаны</value>
+  </data>
+  <data name="ErrorInternet" xml:space="preserve">
+    <value>Нет соединения с интернетом. Повторите попытку позже</value>
+  </data>
+  <data name="ErrorNegativeQuantityTitle" xml:space="preserve">
+    <value>Ошибка валидации</value>
+  </data>
+  <data name="ErrorNegativeQuantityMessage" xml:space="preserve">
+    <value>Обнаружены товары с отрицательным количеством</value>
+  </data>
+  <data name="ErrorNegativeQuantityAndMore" xml:space="preserve">
+    <value>и другие</value>
+  </data>
+  <data name="ErrorNegativeQuantityFooter" xml:space="preserve">
+    <value>Импорт невозможен. Измените данные и попробуйте снова</value>
   </data>
 </root>

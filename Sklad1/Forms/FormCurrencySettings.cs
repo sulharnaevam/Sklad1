@@ -18,9 +18,6 @@ namespace Sklad1.Forms
             LoadCurrencies();
             LoadRates();
             LoadDisplayCurrency();
-
-            btnUpdate.Click += btnUpdate_Click;
-            btnSave.Click += btnSave_Click;
         }
 
         private void LoadCurrencies()
@@ -134,27 +131,7 @@ namespace Sklad1.Forms
         {
             try
             {
-                using (var bd = new Context())
-                {
-                    var setting = bd.Settings.FirstOrDefault();
-                    if (setting == null)
-                    {
-                        setting = new Setting
-                        {
-                            Id = Guid.NewGuid(),
-                            DisplayCurrency = cmbDisplayCurrency.Text,
-                            ExpiryWarningDays = 7,
-                            ExpiryDangerDays = 3
-                        };
-                        bd.Settings.Add(setting);
-                    }
-                    else
-                    {
-                        setting.DisplayCurrency = cmbDisplayCurrency.Text;
-                    }
-
-                    bd.SaveChanges();
-                }
+                AppCurrencyManager.CurrentCurrency = cmbDisplayCurrency.Text;
 
                 MessageBox.Show(Resources.SettingsSaved);
                 DialogResult = DialogResult.OK;

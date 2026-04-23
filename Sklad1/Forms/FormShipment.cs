@@ -13,7 +13,7 @@ namespace Sklad1.Forms
         public FormShipment()
         {
             InitializeComponent();
-
+            AppCurrencyManager.CurrencyChanged += OnCurrencyChanged;
             LoadProducts();
 
             btnAdd.Click += BtnAdd_Click;
@@ -21,7 +21,10 @@ namespace Sklad1.Forms
             btnCancel.Click += btnCancel_Click;
             cmbProduct.SelectedIndexChanged += cmbProduct_SelectedIndexChanged;
         }
-
+        private void OnCurrencyChanged()
+        {
+            LoadProducts();
+        }
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
@@ -52,8 +55,31 @@ namespace Sklad1.Forms
             if (cmbProduct.SelectedItem == null) return;
 
             var selectedProduct = (ProductItem)cmbProduct.SelectedItem;
-            int maxQuantity = selectedProduct.Quantity;
 
+            using (var bd = new Context())
+            {
+                var product = bd.Products.FirstOrDefault(p => p.Article == selectedProduct.Article);
+                if (product != null)
+                {
+                    var availableQuantity = bd.ProductBatches
+                        .Where(b => b.ProductId == product.Id && b.Status == "active" && b.Quantity > 0 && b.ExpiryDate >= DateTime.UtcNow.Date)
+                        .Sum(b => b.Quantity);
+
+                    selectedProduct.Quantity = availableQuantity;
+                }
+            }
+
+            int maxQuantity = selectedProduct.Quantity;
+            if (maxQuantity == 0)
+            {
+                MessageBox.Show(Resources.InvalidShipment);
+                btnShip.Enabled = false;
+                return;
+            }
+            else
+            {
+                btnShip.Enabled = true;
+            }
             int maxItemsToShow = Math.Min(maxQuantity, 20);
             for (int i = 1; i <= maxItemsToShow; i++)
             {

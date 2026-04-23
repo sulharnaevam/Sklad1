@@ -14,6 +14,7 @@ namespace Sklad1.Forms
         {
             InitializeComponent();
             SetPermissions();
+            this.FormClosing += FormMainMenu_FormClosing; 
         }
 
         private void SetPermissions()
@@ -74,6 +75,18 @@ namespace Sklad1.Forms
                 loginForm.Show();
 
                 this.Close();
+            }
+        }
+        private void FormMainMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show(Resources.LogOut, Resources.LogOutText, MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                FormLogin loginForm = new FormLogin();
+                loginForm.Show();
+            }
+            else
+            {
+                e.Cancel = true;  
             }
         }
     }

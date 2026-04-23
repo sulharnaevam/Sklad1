@@ -48,7 +48,7 @@
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(4, 5, 4, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(181, 586);
+            panel1.Size = new Size(181, 618);
             panel1.TabIndex = 1;
             // 
             // lblTitle
@@ -56,7 +56,7 @@
             lblTitle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            lblTitle.Location = new Point(324, 9);
+            lblTitle.Location = new Point(355, 9);
             lblTitle.Margin = new Padding(4, 0, 4, 0);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(474, 65);
@@ -79,7 +79,7 @@
             btnCancel.Anchor = AnchorStyles.Bottom;
             btnCancel.BackColor = SystemColors.ActiveCaption;
             btnCancel.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            btnCancel.Location = new Point(570, 504);
+            btnCancel.Location = new Point(601, 536);
             btnCancel.Margin = new Padding(4, 5, 4, 5);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(239, 54);
@@ -93,7 +93,7 @@
             btnImport.Anchor = AnchorStyles.Bottom;
             btnImport.BackColor = SystemColors.ActiveCaption;
             btnImport.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            btnImport.Location = new Point(283, 504);
+            btnImport.Location = new Point(314, 536);
             btnImport.Margin = new Padding(4, 5, 4, 5);
             btnImport.Name = "btnImport";
             btnImport.Size = new Size(241, 54);
@@ -110,14 +110,14 @@
             panel2.Controls.Add(label1);
             panel2.Location = new Point(199, 131);
             panel2.Name = "panel2";
-            panel2.Size = new Size(731, 88);
+            panel2.Size = new Size(792, 88);
             panel2.TabIndex = 33;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.AppWorkspace;
-            label2.Location = new Point(135, 55);
+            label2.Location = new Point(248, 52);
             label2.Name = "label2";
             label2.Size = new Size(327, 25);
             label2.TabIndex = 1;
@@ -126,7 +126,7 @@
             // label1
             // 
             label1.ForeColor = SystemColors.WindowFrame;
-            label1.Location = new Point(186, 7);
+            label1.Location = new Point(301, 0);
             label1.Name = "label1";
             label1.Size = new Size(223, 63);
             label1.TabIndex = 0;
@@ -141,14 +141,14 @@
             dgvPreview.Location = new Point(199, 231);
             dgvPreview.Name = "dgvPreview";
             dgvPreview.RowHeadersWidth = 62;
-            dgvPreview.Size = new Size(731, 271);
+            dgvPreview.Size = new Size(792, 303);
             dgvPreview.TabIndex = 34;
             // 
             // FormSupplyImport
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(963, 586);
+            ClientSize = new Size(1024, 618);
             Controls.Add(dgvPreview);
             Controls.Add(panel2);
             Controls.Add(btnCancel);

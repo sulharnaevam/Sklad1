@@ -20,6 +20,7 @@ namespace Sklad1.Forms
             InitializeComponent();
 
             btnRegister.Click += BtnRegister_Click;
+            this.FormClosing += FormRegister_FormClosing;
         }
 
         private void BtnRegister_Click(object sender, EventArgs e)
@@ -207,6 +208,12 @@ namespace Sklad1.Forms
                 Logger.Error(ex, Resources.ErrorRegister);
                 MessageBox.Show(Resources.ErrorSystem);
             }
+        }
+
+        private void FormRegister_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            var loginForm = new FormLogin();
+            loginForm.Show();
         }
     }
 }          

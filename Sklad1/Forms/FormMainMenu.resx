@@ -121,7 +121,7 @@
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="pictureBox1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAbYAAAHaCAYAAABsP2xRAAAABGdBTUEAALGPC/xhBQAA/8dJREFUeF7s
         /QeYa+1Z3wv7wzYECCWUcEgoIQQSyEkCCSQkh3JS4BDH4AK2KaaYDiYE4/K2vben9152771NVe9tem+a
@@ -2898,7 +2898,7 @@
         kEIKKaSQQgopuPj/5Ctn6zfsPGkAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="pictureBox3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="pictureBox3.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAuAAAARQCAYAAACsxORGAAAABGdBTUEAALGPC/xhBQAA/8dJREFUeF7s
         /Qd4G9eBLn7/v7vZZHfvZnO3t2yK4yR2EjeJIiWxd4DoIAB2UqTYq6olWZYt917k3qtsFVuWrN5Fsffe
@@ -11083,7 +11083,7 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA/+f/BWNoDQDKLFfAAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="pictureBox2.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAuAAAARQCAYAAACsxORGAAAABGdBTUEAALGPC/xhBQAA/8dJREFUeF7s
         3QVYW/f+x/FTd3fq7u66rWvn7u670zvfnVQudW8p7oUKdYUWqUApdVndhUJxKC6R8/n9n99JQsNB1q77
@@ -14805,7 +14805,7 @@
         QmCC
 </value>
   </data>
-  <data name="pictureBox4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="pictureBox4.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAuAAAARQCAYAAACsxORGAAAABGdBTUEAALGPC/xhBQAA/8dJREFUeF7s
         3Xd8lVd+4P/nNjV6x5Xmbs9kJsn+dorHNu502xgb9ynZ7CaZyU6y2WR3k9k4mck0jxsYDDbN2BgbG5sq
@@ -16207,4 +16207,7 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwa/p/E+MSR65WzIIAAAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>25</value>
+  </metadata>
 </root>
