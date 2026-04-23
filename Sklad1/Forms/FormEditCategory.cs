@@ -1,4 +1,4 @@
-﻿using Serilog;
+﻿using NLog;
 using Sklad1.Data;
 using Sklad1.Helpers;
 using Sklad1.Models;
@@ -12,6 +12,8 @@ namespace Sklad1.Forms
     /// </summary>
     public partial class FormEditCategory : Form
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private Guid _categoryId;
 
         public FormEditCategory(Category category)
@@ -81,7 +83,7 @@ namespace Sklad1.Forms
             }
             catch (Exception ex)
             {
-                Log.Error(ex, Resources.ErrorEditCategory);
+                Logger.Error(ex, Resources.ErrorEditCategory);
                 MessageBox.Show(Resources.ErrorSystem);
             }
         }

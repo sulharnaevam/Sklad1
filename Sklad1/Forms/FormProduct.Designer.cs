@@ -42,6 +42,10 @@
             lblQuantity = new Label();
             txtQuantity = new TextBox();
             cmbCategory = new ComboBox();
+            cmbUnit = new ComboBox();
+            lblUnit = new Label();
+            dtpExpDate = new DateTimePicker();
+            lblDate = new Label();
             SuspendLayout();
             // 
             // panel1
@@ -71,7 +75,7 @@
             lblArticle.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblArticle.AutoSize = true;
             lblArticle.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            lblArticle.Location = new Point(313, 138);
+            lblArticle.Location = new Point(313, 96);
             lblArticle.Margin = new Padding(4, 0, 4, 0);
             lblArticle.Name = "lblArticle";
             lblArticle.Size = new Size(92, 28);
@@ -83,7 +87,7 @@
             lblName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblName.AutoSize = true;
             lblName.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            lblName.Location = new Point(313, 232);
+            lblName.Location = new Point(313, 179);
             lblName.Margin = new Padding(4, 0, 4, 0);
             lblName.Name = "lblName";
             lblName.Size = new Size(104, 28);
@@ -95,7 +99,7 @@
             lblCategory.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblCategory.AutoSize = true;
             lblCategory.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            lblCategory.Location = new Point(313, 330);
+            lblCategory.Location = new Point(313, 258);
             lblCategory.Margin = new Padding(4, 0, 4, 0);
             lblCategory.Name = "lblCategory";
             lblCategory.Size = new Size(110, 28);
@@ -107,17 +111,17 @@
             lblPurchasePrice.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblPurchasePrice.AutoSize = true;
             lblPurchasePrice.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            lblPurchasePrice.Location = new Point(313, 430);
+            lblPurchasePrice.Location = new Point(313, 325);
             lblPurchasePrice.Margin = new Padding(4, 0, 4, 0);
             lblPurchasePrice.Name = "lblPurchasePrice";
-            lblPurchasePrice.Size = new Size(141, 28);
+            lblPurchasePrice.Size = new Size(154, 28);
             lblPurchasePrice.TabIndex = 5;
-            lblPurchasePrice.Text = "Цена закупки:";
+            lblPurchasePrice.Text = "Себестоимость:";
             // 
             // txtArticle
             // 
             txtArticle.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtArticle.Location = new Point(313, 172);
+            txtArticle.Location = new Point(313, 129);
             txtArticle.Margin = new Padding(4, 5, 4, 5);
             txtArticle.Name = "txtArticle";
             txtArticle.Size = new Size(404, 31);
@@ -126,7 +130,7 @@
             // txtName
             // 
             txtName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtName.Location = new Point(313, 265);
+            txtName.Location = new Point(313, 212);
             txtName.Margin = new Padding(4, 5, 4, 5);
             txtName.Name = "txtName";
             txtName.Size = new Size(404, 31);
@@ -135,7 +139,7 @@
             // txtPurchasePrice
             // 
             txtPurchasePrice.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtPurchasePrice.Location = new Point(313, 463);
+            txtPurchasePrice.Location = new Point(313, 358);
             txtPurchasePrice.Margin = new Padding(4, 5, 4, 5);
             txtPurchasePrice.Name = "txtPurchasePrice";
             txtPurchasePrice.Size = new Size(404, 31);
@@ -172,7 +176,7 @@
             lblQuantity.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblQuantity.AutoSize = true;
             lblQuantity.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            lblQuantity.Location = new Point(313, 535);
+            lblQuantity.Location = new Point(313, 394);
             lblQuantity.Margin = new Padding(4, 0, 4, 0);
             lblQuantity.Name = "lblQuantity";
             lblQuantity.Size = new Size(124, 28);
@@ -182,7 +186,7 @@
             // txtQuantity
             // 
             txtQuantity.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtQuantity.Location = new Point(313, 568);
+            txtQuantity.Location = new Point(313, 427);
             txtQuantity.Margin = new Padding(4, 5, 4, 5);
             txtQuantity.Name = "txtQuantity";
             txtQuantity.Size = new Size(404, 31);
@@ -190,17 +194,63 @@
             // 
             // cmbCategory
             // 
+            cmbCategory.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             cmbCategory.FormattingEnabled = true;
-            cmbCategory.Location = new Point(313, 375);
+            cmbCategory.Location = new Point(313, 289);
             cmbCategory.Name = "cmbCategory";
             cmbCategory.Size = new Size(404, 33);
             cmbCategory.TabIndex = 14;
+            // 
+            // cmbUnit
+            // 
+            cmbUnit.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            cmbUnit.FormattingEnabled = true;
+            cmbUnit.Location = new Point(313, 494);
+            cmbUnit.Name = "cmbUnit";
+            cmbUnit.Size = new Size(404, 33);
+            cmbUnit.TabIndex = 15;
+            // 
+            // lblUnit
+            // 
+            lblUnit.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            lblUnit.AutoSize = true;
+            lblUnit.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            lblUnit.Location = new Point(313, 463);
+            lblUnit.Margin = new Padding(4, 0, 4, 0);
+            lblUnit.Name = "lblUnit";
+            lblUnit.Size = new Size(201, 28);
+            lblUnit.TabIndex = 16;
+            lblUnit.Text = "Единица измерения:";
+            // 
+            // dtpExpDate
+            // 
+            dtpExpDate.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            dtpExpDate.Location = new Point(313, 563);
+            dtpExpDate.Name = "dtpExpDate";
+            dtpExpDate.Size = new Size(404, 31);
+            dtpExpDate.TabIndex = 17;
+            // 
+            // lblDate
+            // 
+            lblDate.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            lblDate.AutoSize = true;
+            lblDate.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            lblDate.Location = new Point(313, 532);
+            lblDate.Margin = new Padding(4, 0, 4, 0);
+            lblDate.Name = "lblDate";
+            lblDate.Size = new Size(151, 28);
+            lblDate.TabIndex = 18;
+            lblDate.Text = "Срок годности:";
             // 
             // FormProduct
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(856, 852);
+            Controls.Add(lblDate);
+            Controls.Add(dtpExpDate);
+            Controls.Add(lblUnit);
+            Controls.Add(cmbUnit);
             Controls.Add(cmbCategory);
             Controls.Add(txtQuantity);
             Controls.Add(lblQuantity);
@@ -239,5 +289,9 @@
         private Label lblQuantity;
         private TextBox txtQuantity;
         private ComboBox cmbCategory;
+        private ComboBox cmbUnit;
+        private Label lblUnit;
+        private DateTimePicker dtpExpDate;
+        private Label lblDate;
     }
 }

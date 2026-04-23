@@ -1,4 +1,4 @@
-﻿using Serilog;
+﻿using NLog;
 using Sklad1.Data;
 using Sklad1.Helpers;
 using Sklad1.Properties;
@@ -13,11 +13,14 @@ namespace Sklad1.Forms
     /// </summary>
     public partial class FormRegister : Form
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public FormRegister()
         {
             InitializeComponent();
 
             btnRegister.Click += BtnRegister_Click;
+            this.FormClosing += FormRegister_FormClosing;
         }
 
         private void BtnRegister_Click(object sender, EventArgs e)
@@ -202,9 +205,15 @@ namespace Sklad1.Forms
             }
             catch (Exception ex)
             {
-                Log.Error(ex, Resources.ErrorRegister);
+                Logger.Error(ex, Resources.ErrorRegister);
                 MessageBox.Show(Resources.ErrorSystem);
             }
+        }
+
+        private void FormRegister_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            var loginForm = new FormLogin();
+            loginForm.Show();
         }
     }
 }          

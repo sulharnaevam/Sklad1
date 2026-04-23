@@ -42,7 +42,6 @@
             btnDelete = new Button();
             btnHistory = new Button();
             panel1 = new Panel();
-            btnLogOut = new Button();
             panel2 = new Panel();
             label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
@@ -166,7 +165,6 @@
             // panel1
             // 
             panel1.BackColor = Color.MidnightBlue;
-            panel1.Controls.Add(btnLogOut);
             panel1.Controls.Add(btnDelete);
             panel1.Controls.Add(btnCreate);
             panel1.Controls.Add(btnEdit);
@@ -177,16 +175,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1060, 105);
             panel1.TabIndex = 7;
-            // 
-            // btnLogOut
-            // 
-            btnLogOut.Location = new Point(753, 19);
-            btnLogOut.Name = "btnLogOut";
-            btnLogOut.Size = new Size(171, 65);
-            btnLogOut.TabIndex = 7;
-            btnLogOut.Text = "Выйти";
-            btnLogOut.UseVisualStyleBackColor = true;
-            btnLogOut.Click += btnLogOut_Click;
             // 
             // panel2
             // 
@@ -251,6 +239,5 @@
         private Panel panel1;
         private Panel panel2;
         private Label label1;
-        private Button btnLogOut;
     }
 }

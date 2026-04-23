@@ -1,6 +1,8 @@
-﻿using Sklad1.Data;
+﻿using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Sklad1.Data;
 using Sklad1.Models;
+using Sklad1.Properties;
 
 namespace Sklad1.Helpers
 {
@@ -38,20 +40,43 @@ namespace Sklad1.Helpers
                                 transaction.Rollback();
                                 return false;
                             }
+                            var availableBatches = bd.ProductBatches
+                                .Where(b => b.ProductId == product.Id && b.Status == "active" && b.Quantity > 0 && b.ExpiryDate >= DateTime.UtcNow.Date)
+                                .OrderBy(b => b.ExpiryDate) 
+                                .ToList();
 
-                            var shipmentItem = new ShipmentItem
+                            int totalAvailable = availableBatches.Sum(b => b.Quantity);
+                            if (totalAvailable < item.Quantity)
                             {
-                                Id = Guid.NewGuid(),
-                                ShipmentId = shipment.Id,
-                                ProductId = product.Id,
-                                Quantity = item.Quantity,
-                                PriceAtShipment = product.PurchasePrice
-                            };
-                            bd.ShipmentItems.Add(shipmentItem);
+                                transaction.Rollback();
+                                MessageBox.Show(Resources.InsufficientGoods);
+                                return false;
+                            }
 
-                            product.Quantity -= item.Quantity;
+                            int remainingToShip = item.Quantity;
+
+                            foreach (var batch in availableBatches)
+                            {
+                                if (remainingToShip <= 0) break;
+
+                                int shipFromBatch = Math.Min(remainingToShip, batch.Quantity);
+
+                                var shipmentItem = new ShipmentItem
+                                {
+                                    Id = Guid.NewGuid(),
+                                    ShipmentId = shipment.Id,
+                                    ProductId = product.Id,
+                                    Quantity = shipFromBatch,
+                                    PriceAtShipment = product.PurchasePrice,
+                                    CostAtShipment = batch.PurchasePrice
+                                };
+                                bd.ShipmentItems.Add(shipmentItem);
+
+                                batch.Quantity -= shipFromBatch;
+                                product.Quantity -= shipFromBatch;
+                                remainingToShip -= shipFromBatch;
+                            }
                         }
-
                         bd.SaveChanges();
                         transaction.Commit();
                         return true;

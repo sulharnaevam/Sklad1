@@ -32,7 +32,37 @@ namespace Sklad1.Data
         /// Таблица позиций отгрузок
         /// </summary>
         public DbSet<ShipmentItem> ShipmentItems { get; set; }
-       
+
+        /// <summary>
+        /// Таблица партий товаров (для учёта сроков годности)
+        /// </summary>
+        public DbSet<ProductBatch> ProductBatches { get; set; }
+
+        /// <summary>
+        /// Таблица курсов валют
+        /// </summary>
+        public DbSet<CurrencyRate> CurrencyRates { get; set; }
+
+        /// <summary>
+        /// Таблица убытков (просроченные и списанные товары)
+        /// </summary>
+        public DbSet<Loss> Losses { get; set; }
+
+        /// <summary>
+        /// Таблица настроек приложения
+        /// </summary>
+        public DbSet<Setting> Settings { get; set; }
+
+        /// <summary>
+        /// Таблица поставок
+        /// </summary>
+        public DbSet<Supply> Supplies { get; set; }
+
+        /// <summary>
+        /// Таблица позиций поставок
+        /// </summary>
+        public DbSet<SupplyItem> SupplyItems { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql("Host=localhost;Database=Sklad_BD;Username=postgres;Password=milanaANDmadina");
@@ -40,6 +70,16 @@ namespace Sklad1.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().Property(u => u.Role).HasConversion<string>(); 
+           
+            modelBuilder.Entity<SupplyItem>()
+                .HasOne(si => si.Batch)
+                .WithMany()
+                .HasForeignKey(si => si.BatchId);
+
+            modelBuilder.Entity<ProductBatch>()
+                .HasOne(pb => pb.Supply)
+                .WithMany()
+                .HasForeignKey(pb => pb.SupplyId);
         }
     }
 }

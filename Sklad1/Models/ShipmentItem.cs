@@ -40,6 +40,12 @@ namespace Sklad1.Models
         public decimal PriceAtShipment { get; set; }
 
         /// <summary>
+        /// Себестоимость товара на момент отгрузки (фиксируется для расчёта прибыли)
+        /// </summary>
+        [Column("cost_at_shipment")]
+        public decimal CostAtShipment { get; set; }
+
+        /// <summary>
         /// Связанная отгрузка
         /// </summary>
         public virtual Shipment Shipment { get; set; }
