@@ -25,7 +25,7 @@ namespace Sklad1.Forms
             dtpDateTo.Value = DateTime.Now;
             btnGenerate.Click += btnGenerate_Click;
             btnExport.Click += btnExport_Click;
-            btnPrint.Click += btnPrint_Click;
+            //btnPrint.Click += btnPrint_Click;
 
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         }
@@ -255,65 +255,65 @@ namespace Sklad1.Forms
             return dt;
         }
 
-        private void btnPrint_Click(object sender, EventArgs e)
-        {
-            btnPrint.Enabled = false;
+        //private void btnPrint_Click(object sender, EventArgs e)
+        //{
+        //    btnPrint.Enabled = false;
 
-            if (dgvAnalyticReport.Rows.Count == 0) 
-            { 
-                MessageBox.Show(Resources.NoDataToPrint);
-                btnPrint.Enabled = true;
-                return; 
-            }
+        //    if (dgvAnalyticReport.Rows.Count == 0) 
+        //    { 
+        //        MessageBox.Show(Resources.NoDataToPrint);
+        //        btnPrint.Enabled = true;
+        //        return; 
+        //    }
 
-            PrintDialog printDialog = new PrintDialog();
-            PrintDocument printDocument = new PrintDocument();
-            printDocument.PrintPage += (s, ev) =>
-            {
-                int y = 50, x = 50, rowHeight = 25;
-                int[] colWidths = { 100, 150, 150, 80, 120, 120, 120 };
-                string[] headers = { Resources.Date, Resources.Client, Resources.ProductName, Resources.Quantity, Resources.Revenue, Resources.Cost, Resources.Profit };
+        //    PrintDialog printDialog = new PrintDialog();
+        //    PrintDocument printDocument = new PrintDocument();
+        //    printDocument.PrintPage += (s, ev) =>
+        //    {
+        //        int y = 50, x = 50, rowHeight = 25;
+        //        int[] colWidths = { 100, 150, 150, 80, 120, 120, 120 };
+        //        string[] headers = { Resources.Date, Resources.Client, Resources.ProductName, Resources.Quantity, Resources.Revenue, Resources.Cost, Resources.Profit };
 
-                ev.Graphics.DrawString(Resources.ReportTitle, new Font("Arial", 18, FontStyle.Bold), Brushes.Black, x, y); y += 40;
-                ev.Graphics.DrawString(string.Format(Resources.PeriodFormat, dtpDateFrom.Value.ToString("dd.MM.yyyy"), dtpDateTo.Value.ToString("dd.MM.yyyy")), new Font("Arial", 12), Brushes.Black, x, y); y += 25;
-                ev.Graphics.DrawString(string.Format(Resources.DateFormat, DateTime.Now.ToString("dd.MM.yyyy HH:mm")), new Font("Arial", 10), Brushes.Black, x, y); y += 40;
-                ev.Graphics.DrawString($"{Resources.Revenue}: {lblRevenue.Text}", new Font("Arial", 12, FontStyle.Bold), Brushes.Green, x, y); y += 25;
-                ev.Graphics.DrawString($"{Resources.Cost}: {lblCost.Text}", new Font("Arial", 12), Brushes.Black, x, y); y += 25;
-                ev.Graphics.DrawString($"{Resources.Losses}: {lblLosses.Text}", new Font("Arial", 12), Brushes.Red, x, y); y += 25;
-                ev.Graphics.DrawString($"{Resources.Profit}: {lblProfit.Text}", new Font("Arial", 12, FontStyle.Bold), lblProfit.ForeColor == Color.Green ? Brushes.Green : Brushes.Red, x, y); y += 40;
+        //        ev.Graphics.DrawString(Resources.ReportTitle, new Font("Arial", 18, FontStyle.Bold), Brushes.Black, x, y); y += 40;
+        //        ev.Graphics.DrawString(string.Format(Resources.PeriodFormat, dtpDateFrom.Value.ToString("dd.MM.yyyy"), dtpDateTo.Value.ToString("dd.MM.yyyy")), new Font("Arial", 12), Brushes.Black, x, y); y += 25;
+        //        ev.Graphics.DrawString(string.Format(Resources.DateFormat, DateTime.Now.ToString("dd.MM.yyyy HH:mm")), new Font("Arial", 10), Brushes.Black, x, y); y += 40;
+        //        ev.Graphics.DrawString($"{Resources.Revenue}: {lblRevenue.Text}", new Font("Arial", 12, FontStyle.Bold), Brushes.Green, x, y); y += 25;
+        //        ev.Graphics.DrawString($"{Resources.Cost}: {lblCost.Text}", new Font("Arial", 12), Brushes.Black, x, y); y += 25;
+        //        ev.Graphics.DrawString($"{Resources.Losses}: {lblLosses.Text}", new Font("Arial", 12), Brushes.Red, x, y); y += 25;
+        //        ev.Graphics.DrawString($"{Resources.Profit}: {lblProfit.Text}", new Font("Arial", 12, FontStyle.Bold), lblProfit.ForeColor == Color.Green ? Brushes.Green : Brushes.Red, x, y); y += 40;
 
-                x = 50;
-                for (int i = 0; i < headers.Length; i++)
-                {
-                    ev.Graphics.FillRectangle(Brushes.LightGray, x, y, colWidths[i], rowHeight);
-                    ev.Graphics.DrawRectangle(Pens.Black, x, y, colWidths[i], rowHeight);
-                    ev.Graphics.DrawString(headers[i], new Font("Arial", 10, FontStyle.Bold), Brushes.Black, x + 5, y + 5);
-                    x += colWidths[i];
-                }
-                y += rowHeight;
+        //        x = 50;
+        //        for (int i = 0; i < headers.Length; i++)
+        //        {
+        //            ev.Graphics.FillRectangle(Brushes.LightGray, x, y, colWidths[i], rowHeight);
+        //            ev.Graphics.DrawRectangle(Pens.Black, x, y, colWidths[i], rowHeight);
+        //            ev.Graphics.DrawString(headers[i], new Font("Arial", 10, FontStyle.Bold), Brushes.Black, x + 5, y + 5);
+        //            x += colWidths[i];
+        //        }
+        //        y += rowHeight;
 
-                foreach (DataGridViewRow row in dgvAnalyticReport.Rows)
-                {
-                    if (row.IsNewRow) continue;
-                    x = 50;
-                    ev.Graphics.DrawString(row.Cells["Date"]?.Value?.ToString() ?? "", new Font("Arial", 9), Brushes.Black, x + 5, y + 5); x += colWidths[0];
-                    ev.Graphics.DrawString(row.Cells["Client"]?.Value?.ToString() ?? "", new Font("Arial", 9), Brushes.Black, x + 5, y + 5); x += colWidths[1];
-                    ev.Graphics.DrawString(row.Cells["ProductName"]?.Value?.ToString() ?? "", new Font("Arial", 9), Brushes.Black, x + 5, y + 5); x += colWidths[2];
-                    ev.Graphics.DrawString(row.Cells["Quantity"]?.Value?.ToString() ?? "", new Font("Arial", 9), Brushes.Black, x + 5, y + 5); x += colWidths[3];
-                    ev.Graphics.DrawString(row.Cells["Revenue"]?.Value?.ToString() ?? "", new Font("Arial", 9), Brushes.Black, x + 5, y + 5); x += colWidths[4];
-                    ev.Graphics.DrawString(row.Cells["Cost"]?.Value?.ToString() ?? "", new Font("Arial", 9), Brushes.Black, x + 5, y + 5); x += colWidths[5];
-                    ev.Graphics.DrawString(row.Cells["Profit"]?.Value?.ToString() ?? "", new Font("Arial", 9), Brushes.Black, x + 5, y + 5);
-                    y += rowHeight;
-                    if (y > ev.MarginBounds.Bottom - 50) { ev.HasMorePages = true; return; }
-                }
-            };
-            printDialog.Document = printDocument;
-            if (printDialog.ShowDialog() == DialogResult.OK)
-            {
-                try { printDocument.Print(); MessageBox.Show(Resources.PrintSuccess); }
-                catch (Exception ex) { Logger.Error(ex, Resources.ErrorPrint); MessageBox.Show(Resources.ErrorSystem); }
-            }
-            btnPrint.Enabled = true;
-        }
+        //        foreach (DataGridViewRow row in dgvAnalyticReport.Rows)
+        //        {
+        //            if (row.IsNewRow) continue;
+        //            x = 50;
+        //            ev.Graphics.DrawString(row.Cells["Date"]?.Value?.ToString() ?? "", new Font("Arial", 9), Brushes.Black, x + 5, y + 5); x += colWidths[0];
+        //            ev.Graphics.DrawString(row.Cells["Client"]?.Value?.ToString() ?? "", new Font("Arial", 9), Brushes.Black, x + 5, y + 5); x += colWidths[1];
+        //            ev.Graphics.DrawString(row.Cells["ProductName"]?.Value?.ToString() ?? "", new Font("Arial", 9), Brushes.Black, x + 5, y + 5); x += colWidths[2];
+        //            ev.Graphics.DrawString(row.Cells["Quantity"]?.Value?.ToString() ?? "", new Font("Arial", 9), Brushes.Black, x + 5, y + 5); x += colWidths[3];
+        //            ev.Graphics.DrawString(row.Cells["Revenue"]?.Value?.ToString() ?? "", new Font("Arial", 9), Brushes.Black, x + 5, y + 5); x += colWidths[4];
+        //            ev.Graphics.DrawString(row.Cells["Cost"]?.Value?.ToString() ?? "", new Font("Arial", 9), Brushes.Black, x + 5, y + 5); x += colWidths[5];
+        //            ev.Graphics.DrawString(row.Cells["Profit"]?.Value?.ToString() ?? "", new Font("Arial", 9), Brushes.Black, x + 5, y + 5);
+        //            y += rowHeight;
+        //            if (y > ev.MarginBounds.Bottom - 50) { ev.HasMorePages = true; return; }
+        //        }
+        //    };
+        //    printDialog.Document = printDocument;
+        //    if (printDialog.ShowDialog() == DialogResult.OK)
+        //    {
+        //        try { printDocument.Print(); MessageBox.Show(Resources.PrintSuccess); }
+        //        catch (Exception ex) { Logger.Error(ex, Resources.ErrorPrint); MessageBox.Show(Resources.ErrorSystem); }
+        //    }
+        //    btnPrint.Enabled = true;
+        //}
     }
 }

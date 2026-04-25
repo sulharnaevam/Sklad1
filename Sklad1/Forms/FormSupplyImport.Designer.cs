@@ -84,7 +84,7 @@
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(239, 54);
             btnCancel.TabIndex = 32;
-            btnCancel.Text = "Отмена";
+            btnCancel.Text = "Сохранить";
             btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
             // 

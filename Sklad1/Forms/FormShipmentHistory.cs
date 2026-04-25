@@ -189,7 +189,6 @@ namespace Sklad1.Forms
                     if (lblTotal != null)
                     {
                         decimal totalSum = shipments.Sum(s => s.TotalAmount);
-                        //lblTotal.Text = string.Format(Resources.TotalInfo, shipments.Count, totalSum.ToString("F2"));
                         lblTotal.Text = string.Format(Resources.TotalInfo, shipments.Count, $"{ConvertCurrency(totalSum):F2} {symbol}");
                     }
                 }

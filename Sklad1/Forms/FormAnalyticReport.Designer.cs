@@ -48,8 +48,8 @@
             lblProfit = new Label();
             label6 = new Label();
             dgvAnalyticReport = new DataGridView();
-            btnPrint = new Button();
             btnExport = new Button();
+            btnPrint = new Button();
             panel1.SuspendLayout();
             pnlRevenue.SuspendLayout();
             pnlCost.SuspendLayout();
@@ -260,19 +260,6 @@
             dgvAnalyticReport.Size = new Size(841, 161);
             dgvAnalyticReport.TabIndex = 39;
             // 
-            // btnPrint
-            // 
-            btnPrint.Anchor = AnchorStyles.Bottom;
-            btnPrint.BackColor = SystemColors.InactiveCaption;
-            btnPrint.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            btnPrint.Location = new Point(469, 411);
-            btnPrint.Name = "btnPrint";
-            btnPrint.Size = new Size(161, 53);
-            btnPrint.TabIndex = 41;
-            btnPrint.Text = "Печать";
-            btnPrint.UseVisualStyleBackColor = false;
-            btnPrint.Click += btnPrint_Click;
-            // 
             // btnExport
             // 
             btnExport.Anchor = AnchorStyles.Bottom;
@@ -285,6 +272,18 @@
             btnExport.Text = "Экспорт в файл";
             btnExport.UseVisualStyleBackColor = false;
             btnExport.Click += btnExport_Click;
+            // 
+            // btnPrint
+            // 
+            btnPrint.Anchor = AnchorStyles.Bottom;
+            btnPrint.BackColor = SystemColors.ActiveCaption;
+            btnPrint.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            btnPrint.Location = new Point(494, 410);
+            btnPrint.Name = "btnPrint";
+            btnPrint.Size = new Size(161, 53);
+            btnPrint.TabIndex = 41;
+            btnPrint.Text = "Печать";
+            btnPrint.UseVisualStyleBackColor = false;
             // 
             // FormAnalyticReport
             // 
@@ -345,7 +344,7 @@
         private Label lblLosses;
         private Label lblProfit;
         private DataGridView dgvAnalyticReport;
-        private Button btnPrint;
         private Button btnExport;
+        private Button btnPrint;
     }
 }
